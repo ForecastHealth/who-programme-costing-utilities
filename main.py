@@ -1,7 +1,7 @@
 import argparse
 import json
 import sqlite3
-import pandas as pd
+from programme_costing_utilities import runtime
 DEFAULT_MODULES = []
 DEFAULTS = {
     'start_year': 2023,
@@ -28,17 +28,11 @@ def load_database():
     conn2 = sqlite3.connect('./data/undpp_wpp.db')
     return conn1, conn2
 
-def calculate_programme_costs(data, conn1, conn2):
-    # Logic for calculating programme costs goes here. 
-    # This might include querying the databases, performing calculations, etc.
-    # As the details of these calculations are not provided, I'll return an empty DataFrame for now.
-    return pd.DataFrame()
-
 def main():
     args = get_args()
     data = load_input_file(args.input)
-    conn1, conn2 = load_database()
-    results = calculate_programme_costs(data, conn1, conn2)
+    price_db, demography_db = load_database()
+    results = runtime.run(data, price_db, demography_db)
     results.to_csv(args.output, index=False, encoding='utf-8')
 
 if __name__ == '__main__':
