@@ -27,10 +27,6 @@ This is that utility.
 # Input file
 The input file must be a .JSON, utf-8 encoded file. 
 These are the keys that should be included in the input file:
-- `name`: str
-    the name of the programme
-- `description`: str
-    a description of the programme
 - `start_year`: int (DEFAULT: 2023)
     the year the programme starts
 - `end_year`: int (DEFAULT: 2030)
