@@ -13,6 +13,9 @@ Until then, it's more clear to have another utility which does this.
 This is that utility.
 
 # Use
+- You must have the prerequisite databases (sqlite databases)
+    - `./data/who_choice_price_database.db`
+    - `./data/undpp_wpp.db`
 - Clone the repository using `git clone`
 - Install the requirements using `pip install -r requirements.txt`
 - You can check the tests work by running `python -m unittest discover tests`
