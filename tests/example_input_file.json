@@ -1,0 +1,10 @@
+{
+    "name": "Breast Cancer Screening",
+    "description": "A public health programme for breast cancer screening.",
+    "start_year": 2024,
+    "end_year": 2034,
+    "discount_rate": 0.95,
+    "currency": "GBP",
+    "currency_year": 2023,
+    "modules": ["Training", "Screening", "Follow Up"]
+}

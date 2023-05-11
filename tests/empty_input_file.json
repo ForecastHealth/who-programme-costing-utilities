@@ -1,0 +1,10 @@
+{
+    "name": "",
+    "description": "",
+    "start_year": 2023,
+    "end_year": 2030,
+    "discount_rate": 1,
+    "currency": "USD",
+    "currency_year": 2018,
+    "modules": []
+}
