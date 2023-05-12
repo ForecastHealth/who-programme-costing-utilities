@@ -2,67 +2,6 @@
 import numpy as np
 import sqlite3
 
-def get_population(year, db):
-    """
-    Retrieve the population for a given year.
-
-    Parameters
-    ----------
-    year : int
-        The year.
-    db : sqlite3.Connection
-        The database connection.
-
-    Returns
-    -------
-    int
-        The population.
-    """
-    ...
-def serve_population(cursor, **kwargs) -> np.ndarray:
-    """
-    Return 2 x 101 ndarray of the population of a country in a specific year.
-
-    Parameters
-    ----------
-    cursor : sqlite cursor
-    country : int
-        unsd_m49 code representing a country
-    year : int
-        year of population data
-
-    Returns
-    -------
-    np.ndarray
-        2 x 101 ndarray of the population of a country in a specific year.
-    """
-    counter = kwargs["counter"]
-    year = counter.ref
-    if year < 1950:
-        year = 1950
-    elif year > 2100:
-        year = 2100
-
-    country = kwargs.get("country", 800)
-
-    cursor.execute(
-        f"""
-        SELECT PopMale, PopFemale
-        FROM population
-        WHERE LocID = {country} AND Time = {year}
-        ORDER BY AgeGrpStart
-        """
-        )
-    
-    results = cursor.fetchall()
-
-    results = np.array(results).T
-
-    results *= 1000  # convert from thousands to individuals
-
-    return results
-
-
 def serve_metadata_iso_code(cursor, **kwargs) -> str:
     """
     Return a 1X1 value which is a text region code (e.g. EMR).
