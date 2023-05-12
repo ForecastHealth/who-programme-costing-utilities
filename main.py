@@ -1,15 +1,15 @@
 import argparse
 import json
 import sqlite3
-from programme_costing_utilities import runtime
-DEFAULT_MODULES = []
+from programme_costing_utilities import runtime, components
 DEFAULTS = {
+    'country_iso3': "UGA",
     'start_year': 2023,
     'end_year': 2030,
     'discount_rate': 1,
     'currency': 'USD',
     'currency_year': 2018,
-    'modules': DEFAULT_MODULES
+    'components': components.DEFAULT_COMPONENTS
 }
 
 def get_args():
