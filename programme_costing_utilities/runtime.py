@@ -1,11 +1,11 @@
 import pandas as pd
-from programme_costing_utilities import database_server
+from programme_costing_utilities import calculations
 
 
 def determine_quantity(config):
     ...
 
-def run(data, price_db, demography_db):
+def run(data, conn):
     """
     Create a dataframe of results.
 
@@ -13,10 +13,8 @@ def run(data, price_db, demography_db):
     ----------
     data : dict
         The input data.
-    price_db : sqlite3.Connection
-        The price database.
-    demography_db : sqlite3.Connection
-        The demography database.
+    conn : sqlite3.Connection
+        The database connection.
 
     Returns
     -------
@@ -34,15 +32,15 @@ def run(data, price_db, demography_db):
 
     for i in range(start, end + 1):  # inclusive of end
         discount = discount_rate ** (i - start + 1)
-        population = database_server.serve_population(i, demography_db)
+        population = calculations.serve_population(i, conn)
         for component in components:
             for item, configuration in components.COMPONENT_MAP.items():
                 quantity = determine_quantity(configuration)
-                unit_price = database_server.get_item_price(
+                unit_price = calculations.get_item_price(
                     item, 
                     configuration, 
                     discount, 
-                    price_db)
+                    conn)
                 cost = quantity * unit_price
                 record = {
                     "year": i,
