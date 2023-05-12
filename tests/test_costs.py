@@ -137,12 +137,12 @@ class TestConsumable(unittest.TestCase):
 
     def test_paper(self):
         """Test getting the price of paper."""
-        self.assertEqual(calculations.serve_consumable_price("Paper plain", self.conn)[0], 0.02171)
+        self.assertEqual(calculations.serve_consumable_cost("Paper plain", self.conn)[0], 0.02171)
 
     def test_photocopier(self):
         """Test getting the price of paper."""
         item = "Multifunciton Photocopier, Fax, Printer and Scanner "
-        self.assertEqual(calculations.serve_consumable_price(item, self.conn)[0], 2199)
+        self.assertEqual(calculations.serve_consumable_cost(item, self.conn)[0], 2199)
 
 
 class TestPerDiem(unittest.TestCase):
@@ -196,6 +196,34 @@ class TestPerDiem(unittest.TestCase):
         self.assertEqual(actual_per_diem, expected)
 
 
+class TestDDist(unittest.TestCase):
+    """Test the retrieval of DDIst information"""
+
+    def setUp(self):
+        self.conn = sqlite3.connect('./data/who_choice_price_database.db')
+
+    def test_ddist95(self):
+        """Test getting the DDist95 value"""
+        country = "AUS"
+        approx_value = int(calculations.serve_distance_between_regions(country, "DDist95", self.conn))
+        expected_value = 1148
+        self.assertEqual(approx_value, expected_value)
+
+    def test_ddist10(self):
+        """Test getting the DDist10 value"""
+        country = "NAM"
+        approx_value = int(calculations.serve_distance_between_regions(country, "DDist10", self.conn))
+        expected_value = 574
+        self.assertEqual(approx_value, expected_value)
+
+    def test_landmass(self):
+        """Test getting the landmass value"""
+        country = "RUS"
+        approx_value = int(calculations.serve_distance_between_regions(country, "size_km_sq", self.conn))
+        expected_value = 16_889_000
+        self.assertEqual(approx_value, expected_value)
+
+
 class TestMeetings(unittest.TestCase):
     """
     Test meetings and workshops.
@@ -207,28 +235,63 @@ class TestMeetings(unittest.TestCase):
 
     def test_national_workshop(self):
         attendees = [
-            ("National Experts", 4,  True),
-            ("Local Staff", 20, True),
-            ("Local Support", 2, False)
+            ("National Experts", "visiting", 4, True),
+            ("Local Professional Staff", "visiting", 20, True),
+            ("Support Staff", "local", 2, False)
         ]
-        workshop_records = calculations.serve_meeting_records(
-            self.country,
-            self.year,
-            5,
-            attendees,
-            200,
-            self.conn)
-
+        national_workshop_records = calculations.serve_meeting_costs(
+            country=self.country,
+            year=self.year,
+            division="national",
+            days=5,
+            attendees=attendees,
+            room_size=200,
+            conn=self.conn)
         ...
+        
 
     def test_provincial_meeting(self):
         ...
 
     def test_district_workshop(self):
+        attendees = [
+            ("National Experts", "visiting", 4, True),
+            ("Local Professional Staff", "visiting", 20, True),
+            ("Support Staff", "local", 2, False)
+        ]
+        provincial_workshop_records = calculations.serve_meeting_costs(
+            country=self.country,
+            year=self.year,
+            division="national",
+            days=5,
+            attendees=attendees,
+            room_size=200,
+            conn=self.conn,
+            frequency=2,
+            annual_meetings=3)
         ...
 
 class CalculateVehicles(unittest.TestCase):
-    ...
+    """
+    Calculate operating costs for vehicles.
+    """
+    def setUp(self):
+        self.car = "Corolla sedan 2014 model"
+        self.conn = sqlite3.connect('./data/who_choice_price_database.db')
+
+    def test_operating_cost_per_km(self):
+        """Test getting the operating cost per km."""
+        cost = calculations.serve_vehicle_operating_cost(self.car, self.conn)[0]
+        self.assertEqual(
+            cost, 0.13837172222222222
+        )
+
+    def test_fuel_consumption_per_km(self):
+        """Test getting the fuel consumption per km."""
+        consumption = calculations.serve_vehicle_fuel_consumption(self.car, self.conn)[0]
+        self.assertEqual(
+            consumption, 0.0668
+        )
 
 class TestCostRebasing(unittest.TestCase):
     ...
