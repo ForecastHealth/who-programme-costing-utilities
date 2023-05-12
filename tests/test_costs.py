@@ -5,6 +5,7 @@ import unittest
 import sqlite3
 from programme_costing_utilities import calculations
 
+
 class TestDemographics(unittest.TestCase):
     """Test getting demography."""
 
@@ -30,6 +31,7 @@ class TestDemographics(unittest.TestCase):
         """Test getting the population between 1950 and 2100."""
         self.assertEqual(calculations.serve_population(self.country, 2020, self.conn), 96_648_685)
 
+
 class TestStatisticalDivisions(unittest.TestCase):
     """Test getting statistical/administrative divisions."""
     def setUp(self):
@@ -47,6 +49,7 @@ class TestStatisticalDivisions(unittest.TestCase):
     def test_district_division(self):
         """Test getting the district division."""
         self.assertEqual(calculations.serve_number_of_divisions(self.country, "district", self.conn), 350)
+
 
 class TestPersonnel(unittest.TestCase):
     """Test calculating cadres."""
@@ -124,6 +127,7 @@ class TestPersonnel(unittest.TestCase):
             0.056394115509409475
         )
 
+
 class TestConsumable(unittest.TestCase):
     """
     Testing the ability to get accurate prices.
@@ -150,12 +154,47 @@ class TestPerDiem(unittest.TestCase):
         self.year = 2019
         self.conn = sqlite3.connect('./data/who_choice_price_database.db')
 
-    def test_per_diem_int(self):
+    def test_per_diem_int_national(self):
         """Test getting the per diem for an international."""
-        calculations.serve_per_diem(
+        actual_per_diem = calculations.serve_per_diem(
             self.country,
-            self.conn
+            "NATIONAL",
+            self.conn,
+            local=False
+        )[0]
+
+        expected = 265.416155869506
+        self.assertEqual(actual_per_diem, expected)
+
+    def test_per_diem_local_provincial(self):
+        """Test getting the per diem for a local provincial."""
+        actual_per_diem = calculations.serve_per_diem(
+            self.country,
+            "provincial",
+            self.conn,
+            local=True
+        )[0]
+
+        expected_international = 149.84705803456
+        local_proportion = 0.2
+        self.assertAlmostEqual(
+            actual_per_diem, 
+            expected_international * local_proportion,
+            6
         )
+
+    def test_per_diem_international_district(self):
+        """Test getting the per diem for an international district."""
+        actual_per_diem = calculations.serve_per_diem(
+            self.country,
+            "district",
+            self.conn,
+            local=False
+        )[0]
+
+        expected = 97.9540342065485
+        self.assertEqual(actual_per_diem, expected)
+
 
 class TestMeetings(unittest.TestCase):
     """

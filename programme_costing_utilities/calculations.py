@@ -312,7 +312,7 @@ def calculate_fuel_price(country, vehicle, price_db):
     """
     ...
 
-def serve_per_diem(country, conn, local=False, accommodation=False):
+def serve_per_diem(country, division, conn, local=False, accommodation=False):
     """
     Retrieve the per diem rates for a country
 
@@ -320,15 +320,22 @@ def serve_per_diem(country, conn, local=False, accommodation=False):
     ----------
     country : str
         The ISO3 code of the country.
+    division : str
+        The division of the personnel.
     conn : sqlite3.Connection
         The connection to the database.
     local : bool
         Whether to retrieve the local per diem rate.
-    accommodation : bool
-        Whether to retrieve the per diem rate with accommodation.
     """
+    if division.lower() == "national":
+        dsa = "dsa_national"
+    elif division.lower() == "provincial":
+        dsa = "dsa_upper"
+    elif division.lower() == "district":
+        dsa = "dsa_lower"
+
     query = f"""
-        SELECT DSA, currency, year, local_proportion, accomodation_proportion
+        SELECT {dsa}, currency, year, local_proportion
         FROM costs_per_diems
         WHERE ISO3 = ?
         """
@@ -337,12 +344,9 @@ def serve_per_diem(country, conn, local=False, accommodation=False):
     cursor.execute(query, (country, ))
 
     result = cursor.fetchone()
-    per_diem, currency, year, local_proportion, accomodation_proportion = result
+    per_diem, currency, year, local_proportion = result
 
     if local:
         per_diem *= local_proportion
-
-    if accommodation:
-        per_diem += (per_diem * accomodation_proportion)
 
     return per_diem, (currency, year)
