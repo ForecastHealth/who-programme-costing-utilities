@@ -182,7 +182,7 @@ def calculate_daily_salary(country, cadre, conn):
         A tuple of the currency and currency_year
     """
     annual_salary, currency_information = calculate_personnel_annual_salary(country, cadre, conn)
-    DAYS_WORKED_PER_YEAR = 230  # FIXME - Should interrogate this assumption
+    DAYS_WORKED_PER_YEAR = 230  # FIXME #1 - Should interrogate this assumption
     daily_salary = annual_salary / DAYS_WORKED_PER_YEAR
     return daily_salary, currency_information
 
@@ -315,7 +315,7 @@ def serve_meeting_costs(
 
         # opportunity cost (days of salary) for local attendees
         local_attendees = [a for a in attendees if a[1] == "local"]
-        cadre = 2  # FIXME - Assuming cadre of support staff is 2
+        cadre = 2  # FIXME #2 - Assuming cadre of support staff is 2
         daily_salary, currency_information = calculate_daily_salary(country, cadre, conn)
         for local_attendee in local_attendees:
             attendee_label, _, quantity, _ = local_attendee
@@ -327,7 +327,7 @@ def serve_meeting_costs(
         # travel = attendees * ddist * operational cost of car
         travelling_attendees = [a for a in attendees if a[3]]
         vehicle_operating_cost_per_km, currency_information = serve_vehicle_operating_cost(preferred_vehicle, conn)
-        distance_travelled_in_km = serve_distance_between_regions(country, "DDist95", conn)  # FIXME - Interrogate this assumption
+        distance_travelled_in_km = serve_distance_between_regions(country, "DDist95", conn)  # FIXME #3 - Interrogate this assumption
         cost_of_travel_per_attendee = distance_travelled_in_km * vehicle_operating_cost_per_km
         for travelling_attendee in travelling_attendees:
             attendee_label, _, quantity, _ = travelling_attendee
@@ -435,8 +435,6 @@ def serve_distance_between_regions(country, ddist, conn):
 def calculate_room_hire(country, division, year, room_size, conn):
     """
     Calculate the cost of hiring a room in a country at a given m2.
-    NOTE - Currently this method is unclear. 
-    TODO - Understand the logic of this method.
 
     Parameters
     ----------
@@ -453,7 +451,7 @@ def calculate_room_hire(country, division, year, room_size, conn):
         The connection to the database.
     """
     per_diems, cost_information = serve_per_diem(country, division, conn, False)
-    room_cost_per_m2 = per_diems / 35 * 0.6  # FIXME - This is the odd bit
+    room_cost_per_m2 = per_diems / 35 * 0.6  # FIXME #4 - This is the odd bit
     room_cost = room_cost_per_m2 * room_size
     return room_cost, cost_information
 
@@ -480,7 +478,7 @@ def calculate_km_travelled_per_year(
     float
         The number of kilometers travelled per year.
     """
-    return 1 * 2000 * 12
+    return 1 * 2000 * 12  # TODO #5 What is the rationale of this method?
 
 
 def calculate_fuel_price(country, vehicle, price_db):
