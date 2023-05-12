@@ -127,62 +127,6 @@ def serve_cost_per_visit(cursor, **kwargs) -> float:
     return x
 
 
-def serve_cost_per_workforce(cursor, **kwargs):
-    """
-    Return the cost in dollars of an visit.
-
-    The cost_index is assumed to be the reference to the cost needed
-    1 = CADRE1
-    2 = CADRE2
-    3 = CADRE3
-    4 = CADRE4
-
-    Parameters
-    ----------
-    index : float
-        the index lookup for the dollar cost
-    country : int
-
-    Returns
-    -------
-    float
-        cost_per_minute
-    """
-    country = kwargs["country"]
-    cost_index = int(kwargs["index"])
-    cursor.execute(
-            """
-            SELECT * FROM "ResourceWorkforceCosts2019"
-            WHERE M49 = ?
-            """, (country, ))
-
-    #  returns a list with 1 tuple
-    x = (cursor.fetchall())
-
-    # get"s the index from the tuple
-    # the metadata is of length 1, so the cost == correct index
-    try:
-        x = x[0][cost_index]
-    except IndexError:
-        cursor.execute(
-                """
-                SELECT * FROM "ResourceWorkforceCosts"
-                WHERE M49 = ?
-                """, (country, )
-                )
-        x = (cursor.fetchall())
-        x = x[0][int(cost)]
-
-    # This cost is per month, and we need it per minute!
-    cost_per_month = x
-    cost_per_year = cost_per_month * 12
-    days_worked_per_year = 230
-    hours_worked_per_day = 8
-    hours_worked_per_year = days_worked_per_year * hours_worked_per_day
-    minutes_worked_per_year = hours_worked_per_year * 60
-    cost_per_minute = cost_per_year / minutes_worked_per_year
-
-    return cost_per_minute
 
 
 def rebase_currency(cursor,  **kwargs):
