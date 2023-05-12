@@ -24,15 +24,14 @@ def load_input_file(input_file):
     return {**DEFAULTS, **data}
 
 def load_database():
-    conn1 = sqlite3.connect('./data/who_choice_price_database.db')
-    conn2 = sqlite3.connect('./data/undpp_wpp.db')
-    return conn1, conn2
+    conn = sqlite3.connect('./data/who_choice_price_database.db')
+    return conn
 
 def main():
     args = get_args()
     data = load_input_file(args.input)
-    price_db, demography_db = load_database()
-    results = runtime.run(data, price_db, demography_db)
+    conn = load_database()
+    results = runtime.run(data, conn)
     results.to_csv(args.output, index=False, encoding='utf-8')
 
 if __name__ == '__main__':
