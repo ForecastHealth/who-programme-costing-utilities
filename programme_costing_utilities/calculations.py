@@ -27,22 +27,59 @@ def serve_population(country, year, conn) :
         year = 2100
 
     query = f"""
-        SELECT PopMale, PopFemale
+        SELECT Value
         FROM population
-        WHERE LocID = ? 
+        WHERE Iso3 = ? 
         AND Time = ?
+        AND Variant = ?
         """
     cursor = conn.cursor()
-    cursor.execute(query, (country, year))
+    cursor.execute(query, (country, year, "Median"))
 
-    result = cursor.fetchall()
+    result = cursor.fetchone()[0]
     if result is None:
         return 0
-    result = np.array(result).T
-    result *= 1000  # convert from thousands to individuals
-    result = np.sum(result)
 
     return result
+
+
+def serve_number_of_divisions(country, division, conn):
+    """
+    Return the number of divisions in a country.
+    The divisions = National, Provincial, District
+
+    Parameters
+    ----------
+    country : str
+        The ISO3 code of the country.
+    division : str
+        The statistical division of interest.
+        National | Provincial | District
+
+    Returns
+    -------
+    int
+        The number of divisions.
+    """
+    if division.lower() == "national":
+        return 1
+
+    query = f"""
+    SELECT *
+    FROM administrative_divisions
+    WHERE ISO3 = ?
+    """
+    cursor = conn.cursor()
+    cursor.execute(query, (country, ))
+    result = cursor.fetchone()
+
+    if division.lower() == "provincial":
+        return result[1]
+    elif division.lower() == "district":
+        return result[2]
+
+    return result
+
 
 def fit_FTE(FTE, country, year, division, conn):
     """
@@ -68,7 +105,20 @@ def fit_FTE(FTE, country, year, division, conn):
     float
         The fitted (actual, real) FTE.
     """
-    population = get_population(country, conn)
+    population = serve_population(country, year, conn)
+    if division.lower() == "national":
+        return FTE * population / 50_000_000
+
+    n_divisions = serve_number_of_divisions(country, division, conn)
+    average_pop_per_division = population / n_divisions
+
+    if division.lower() == "provincial":
+        return FTE * average_pop_per_division / 5_000_000
+    elif division.lower() == "district":
+        return FTE * average_pop_per_division / 500_000
+    
+    else:
+        return 0
 
 
 def calculate_personnel_annual_salary(country, cadre, conn):
@@ -112,7 +162,7 @@ def calculate_personnel_annual_salary(country, cadre, conn):
     return annual_salary, cost_tuple
 
 
-def calculate_consumable_cost(consumable, unit_cost, quantity):
+def serve_consumable_cost(consumable, conn):
     """
     Calculate the cost of purchasing consumables.
 
@@ -120,17 +170,26 @@ def calculate_consumable_cost(consumable, unit_cost, quantity):
     ----------
     consumable : str
         The type of consumable.
-    unit_cost : float
-        The unit cost of the consumable.
-    quantity : float
-        The quantity of the consumable.
+    conn : sqlite3.Connection
+        The connection to the database.
 
     Returns
     -------
     float
         The cost of purchasing consumables.
     """
-    return unit_cost * quantity
+    query = f"""
+        SELECT price, currency, year
+        FROM office_supplies_and_furniture
+        WHERE item = ?
+        """
+    cursor = conn.cursor()
+    cursor.execute(query, (consumable, ))
+
+    result = cursor.fetchone()
+    consumable_price, currency, year = result
+
+    return consumable_price, (currency, year)
 
 
 def calculate_annualised_cost(unit_cost, useful_life_years):
@@ -152,14 +211,13 @@ def calculate_annualised_cost(unit_cost, useful_life_years):
     return unit_cost / useful_life_years
 
 
-def calculate_meeting(
+def serve_meeting_records(
     country,
+    year,
     days,
-    national_experts_in_attendance,
-    travel_for_national_experts,
-    local_staff_in_attendance,
-    travel_for_local_staff,
-    meeting_room_m2
+    attendees,
+    room_size,
+    conn
     ):
     """
     Calculate the cost of a meeting.
@@ -168,23 +226,29 @@ def calculate_meeting(
     ----------
     country : str
         The ISO3 code of the country.
+    year : int
+        The year of interest.
     days : int
         The number of days of the meeting.
-    national_experts_in_attendance : int
-        The number of national experts in attendance.
-    travel_for_national_experts : int
-        The number of national experts who need travel.
-    local_staff_in_attendance : int
-        The number of local staff in attendance.
-    travel_for_local_staff : int
-        The number of local staff who need travel.
-    meeting_room_m2 : int
-        The size of the meeting room in square meters.
+    attendees : list
+        A list of attendees with the following form:
+        (label, number, travel)
+        label : str
+            The label of the attendee.
+        number : int
+            The number of attendees of this cadre.
+        travel : bool
+            Whether the attendee needs to travel.
+    room_size : int
+        The size of the room in metres squared.
+    conn : sqlite3.Connection
+        The connection to the database.
 
     Returns
     -------
-    tuple
-        The cost of the meeting in USD and the records of the meeting costs.
+    list
+        each entry is a tuple of the form:
+        item, cost, (currency, currency_year)
     """
     ...
 
@@ -247,3 +311,38 @@ def calculate_fuel_price(country, vehicle, price_db):
         The connection to the price database.
     """
     ...
+
+def serve_per_diem(country, conn, local=False, accommodation=False):
+    """
+    Retrieve the per diem rates for a country
+
+    Parameters
+    ----------
+    country : str
+        The ISO3 code of the country.
+    conn : sqlite3.Connection
+        The connection to the database.
+    local : bool
+        Whether to retrieve the local per diem rate.
+    accommodation : bool
+        Whether to retrieve the per diem rate with accommodation.
+    """
+    query = f"""
+        SELECT DSA, currency, year, local_proportion, accomodation_proportion
+        FROM costs_per_diems
+        WHERE ISO3 = ?
+        """
+
+    cursor = conn.cursor()
+    cursor.execute(query, (country, ))
+
+    result = cursor.fetchone()
+    per_diem, currency, year, local_proportion, accomodation_proportion = result
+
+    if local:
+        per_diem *= local_proportion
+
+    if accommodation:
+        per_diem += (per_diem * accomodation_proportion)
+
+    return per_diem, (currency, year)
