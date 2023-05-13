@@ -1,0 +1,422 @@
+    [
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Programme Director",
+            "Division": "National",
+            "FTE": 0.250,
+            "Activities": "Oversight; Monitoring; Reporting"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Programme Manager",
+            "Division": "National",
+            "FTE": 0.500,
+            "Activities": "Oversight; Monitoring; Reporting"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Administration Officer",
+            "Division": "National",
+            "FTE": 1.000,
+            "Activities": "Data collection; Monitoring"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Clerical Officer/Administrative Asst.",
+            "Division": "National",
+            "FTE": 2.000,
+            "Activities": "Data collection; Monitoring"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Personnel Secretary/Asst./Receptionist",
+            "Division": "National",
+            "FTE": 1.750,
+            "Activities": "Office support"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Accountant",
+            "Division": "National",
+            "FTE": 0.500,
+            "Activities": "Financial data entry/analysis"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "I.S./I.T./Computing Manager",
+            "Division": "National",
+            "FTE": 0.250,
+            "Activities": "I.T. support"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "I.T./Computing Officer",
+            "Division": "National",
+            "FTE": 0.500,
+            "Activities": "I.T. support"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Cleaner",
+            "Division": "National",
+            "FTE": 0.250,
+            "Activities": "General office maintenance"
+        },
+        {
+            "Programme Area": "Promotion / media / advocay",
+            "Role": "Public Health Specialist",
+            "Division": "National",
+            "FTE": 1.000,
+            "Activities": "Advocacy; Dissemination"
+        },
+        {
+            "Programme Area": "Promotion / media / advocay",
+            "Role": "Public Health Officer/Assistant",
+            "Division": "National",
+            "FTE": 2.000,
+            "Activities": "Admin / research support"
+        },
+        {
+            "Programme Area": "Promotion / media / advocay",
+            "Role": "Health Educator/Trainer",
+            "Division": "National",
+            "FTE": 2.000,
+            "Activities": "Advocacy; Dissemination"
+        },
+        {
+            "Programme Area": "Promotion / media / advocay",
+            "Role": "Public Relations Manager",
+            "Division": "National",
+            "FTE": 0.500,
+            "Activities": ""
+        },
+        {
+            "Programme Area": "Promotion / media / advocay",
+            "Role": "Public Relations Officer",
+            "Division": "National",
+            "FTE": 1.000,
+            "Activities": ""
+        },
+        {
+            "Programme Area": "Law enforcement / inspection",
+            "Role": "Superintendant",
+            "Division": "National",
+            "FTE": 0.000,
+            "Activities": "Supervision of new laws"
+        },
+        {
+            "Programme Area": "Law enforcement / inspection",
+            "Role": "Police Officer",
+            "Division": "National",
+            "FTE": 0.000,
+            "Activities": "Enforcement of new laws; inspection"
+        },
+        {
+            "Programme Area": "Law enforcement / inspection",
+            "Role": "Lawyer",
+            "Division": "National",
+            "FTE": 0.250,
+            "Activities": "Development of new laws"
+        },
+        {
+            "Programme Area": "Law enforcement / inspection",
+            "Role": "Legal Officer",
+            "Division": "National",
+            "FTE": 0.500,
+            "Activities": "Development of new laws"
+        },
+        {
+            "Programme Area": "Law enforcement / inspection",
+            "Role": "Transport Manager",
+            "Division": "National",
+            "FTE": 0.313,
+            "Activities": ""
+        },
+        {
+            "Programme Area": "Law enforcement / inspection",
+            "Role": "Transport Driver",
+            "Division": "National",
+            "FTE": 1.250,
+            "Activities": ""
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Programme Director",
+            "Division": "Provincial",
+            "FTE": 0.125,
+            "Activities": "Oversight; Monitoring; Reporting"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Programme Manager",
+            "Division": "Provincial",
+            "FTE": 0.250,
+            "Activities": "Oversight; Monitoring; Reporting"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Administration Officer",
+            "Division": "Provincial",
+            "FTE": 0.500,
+            "Activities": "Data collection; Monitoring"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Clerical Officer/Administrative Asst.",
+            "Division": "Provincial",
+            "FTE": 1.000,
+            "Activities": "Data collection; Monitoring"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Personnel Secretary/Asst./Receptionist",
+            "Division": "Provincial",
+            "FTE": 0.875,
+            "Activities": "Office support"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Accountant",
+            "Division": "Provincial",
+            "FTE": 0.250,
+            "Activities": "Financial data entry/analysis"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "I.S./I.T./Computing Manager",
+            "Division": "Provincial",
+            "FTE": 0.125,
+            "Activities": "I.T. support"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "I.T./Computing Officer",
+            "Division": "Provincial",
+            "FTE": 0.250,
+            "Activities": "I.T. support"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Cleaner",
+            "Division": "Provincial",
+            "FTE": 0.250,
+            "Activities": "General office maintenance"
+        },
+        {
+            "Programme Area": "Promotion / media / advocay",
+            "Role": "Public Health Specialist",
+            "Division": "Provincial",
+            "FTE": 0.500,
+            "Activities": "Advocacy; Dissemination"
+        },
+        {
+            "Programme Area": "Promotion / media / advocay",
+            "Role": "Public Health Officer/Assistant",
+            "Division": "Provincial",
+            "FTE": 1.000,
+            "Activities": "Admin / research support"
+        },
+        {
+            "Programme Area": "Promotion / media / advocay",
+            "Role": "Health Educator/Trainer",
+            "Division": "Provincial",
+            "FTE": 1.000,
+            "Activities": "Advocacy; Dissemination"
+        },
+        {
+            "Programme Area": "Promotion / media / advocay",
+            "Role": "Public Relations Manager",
+            "Division": "Provincial",
+            "FTE": 0.250,
+            "Activities": ""
+        },
+        {
+            "Programme Area": "Promotion / media / advocay",
+            "Role": "Public Relations Officer",
+            "Division": "Provincial",
+            "FTE": 0.500,
+            "Activities": ""
+        },
+        {
+            "Programme Area": "Law enforcement / inspection",
+            "Role": "Superintendant",
+            "Division": "Provincial",
+            "FTE": 0.000,
+            "Activities": "Supervision of new laws"
+        },
+        {
+            "Programme Area": "Law enforcement / inspection",
+            "Role": "Police Officer",
+            "Division": "Provincial",
+            "FTE": 0.000,
+            "Activities": "Enforcement of new laws; inspection"
+        },
+        {
+            "Programme Area": "Law enforcement / inspection",
+            "Role": "Lawyer",
+            "Division": "Provincial",
+            "FTE": 0.125,
+            "Activities": "Development of new laws"
+        },
+        {
+            "Programme Area": "Law enforcement / inspection",
+            "Role": "Legal Officer",
+            "Division": "Provincial",
+            "FTE": 0.250,
+            "Activities": "Development of new laws"
+        },
+        {
+            "Programme Area": "Law enforcement / inspection",
+            "Role": "Transport Manager",
+            "Division": "Provincial",
+            "FTE": 0.156,
+            "Activities": ""
+        },
+        {
+            "Programme Area": "Law enforcement / inspection",
+            "Role": "Transport Driver",
+            "Division": "Provincial",
+            "FTE": 0.625,
+            "Activities": ""
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Programme Director",
+            "Division": "District",
+            "FTE": null,
+            "Activities": "Oversight; Monitoring; Reporting"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Programme Manager",
+            "Division": "District",
+            "FTE": 0.063,
+            "Activities": "Oversight; Monitoring; Reporting"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Administration Officer",
+            "Division": "District",
+            "FTE": 0.125,
+            "Activities": "Data collection; Monitoring"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Clerical Officer/Administrative Asst.",
+            "Division": "District",
+            "FTE": 0.250,
+            "Activities": "Data collection; Monitoring"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Personnel Secretary/Asst./Receptionist",
+            "Division": "District",
+            "FTE": 0.188,
+            "Activities": "Office support"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Accountant",
+            "Division": "District",
+            "FTE": 0.063,
+            "Activities": "Financial data entry/analysis"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "I.S./I.T./Computing Manager",
+            "Division": "District",
+            "FTE": null,
+            "Activities": "I.T. support"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "I.T./Computing Officer",
+            "Division": "District",
+            "FTE": 0.063,
+            "Activities": "I.T. support"
+        },
+        {
+            "Programme Area": "Programme management (incl. M&E)",
+            "Role": "Cleaner",
+            "Division": "District",
+            "FTE": 0.000,
+            "Activities": "General office maintenance"
+        },
+        {
+            "Programme Area": "Promotion / media / advocay",
+            "Role": "Public Health Specialist",
+            "Division": "District",
+            "FTE": 0.125,
+            "Activities": "Advocacy; Dissemination"
+        },
+        {
+            "Programme Area": "Promotion / media / advocay",
+            "Role": "Public Health Officer/Assistant",
+            "Division": "District",
+            "FTE": 0.250,
+            "Activities": "Admin / research support"
+        },
+        {
+            "Programme Area": "Promotion / media / advocay",
+            "Role": "Health Educator/Trainer",
+            "Division": "District",
+            "FTE": 0.250,
+            "Activities": "Advocacy; Dissemination"
+        },
+        {
+            "Programme Area": "Promotion / media / advocay",
+            "Role": "Public Relations Manager",
+            "Division": "District",
+            "FTE": 0.125,
+            "Activities": ""
+        },
+        {
+            "Programme Area": "Promotion / media / advocay",
+            "Role": "Public Relations Officer",
+            "Division": "District",
+            "FTE": 0.250,
+            "Activities": ""
+        },
+        {
+            "Programme Area": "Law enforcement / inspection",
+            "Role": "Superintendant",
+            "Division": "District",
+            "FTE": 0.000,
+            "Activities": "Supervision of new laws"
+        },
+        {
+            "Programme Area": "Law enforcement / inspection",
+            "Role": "Police Officer",
+            "Division": "District",
+            "FTE": 0.000,
+            "Activities": "Enforcement of new laws; inspection"
+        },
+        {
+            "Programme Area": "Law enforcement / inspection",
+            "Role": "Lawyer",
+            "Division": "District",
+            "FTE": null,
+            "Activities": "Development of new laws"
+        },
+        {
+            "Programme Area": "Law enforcement / inspection",
+            "Role": "Legal Officer",
+            "Division": "District",
+            "FTE": 0.000,
+            "Activities": "Development of new laws"
+        },
+        {
+            "Programme Area": "Law enforcement / inspection",
+            "Role": "Transport Manager",
+            "Division": "District",
+            "FTE": 0.031,
+            "Activities": ""
+        },
+        {
+            "Programme Area": "Law enforcement / inspection",
+            "Role": "Transport Driver",
+            "Division": "District",
+            "FTE": 0.156,
+            "Activities": ""
+        }
+    ]
