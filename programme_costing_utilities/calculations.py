@@ -432,6 +432,7 @@ def serve_distance_between_regions(country, ddist, conn):
 
     return distance_km
 
+
 def calculate_room_hire(country, division, year, room_size, conn):
     """
     Calculate the cost of hiring a room in a country at a given m2.
@@ -495,6 +496,7 @@ def calculate_fuel_price(country, vehicle, price_db):
         The connection to the price database.
     """
     ...
+
 
 def serve_per_diem(country, division, conn, local=False):
     """

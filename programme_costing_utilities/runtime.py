@@ -2,12 +2,35 @@ import pandas as pd
 from programme_costing_utilities import calculations
 
 
-def determine_quantity(config):
-    ...
+def calculate_discount(discount_rate, year, start):
+    """
+    Calculate the discount for the given year
+
+    Assumes the discount rate is 1 + r e.g. 1.03
+    First year = year - year = 0 so discount is 1
+
+    Parameters
+    ----------
+    discount_rate : float
+        The discount rate.
+    year : int
+        The year.
+    start : int
+        The start year.
+
+    Returns
+    -------
+    float
+        The current discount to be applied this year
+    """
+    return discount_rate ** (year - start)
+
 
 def run(data, conn):
     """
-    Create a dataframe of results.
+    Go through components, unpack them into individual elements and create a transaction record for that element.
+    For example, a meeting will have elements such as room hire, and per diems.
+    These records are then converted into a dataframe.
 
     Parameters
     ----------
@@ -31,26 +54,26 @@ def run(data, conn):
     results = []
 
     for i in range(start, end + 1):  # inclusive of end
-        discount = discount_rate ** (i - start + 1)
-        population = calculations.serve_population(i, conn)
+
+        current_discount = calculate_discount(discount_rate, i)
+
         for component in components:
-            for item, configuration in components.COMPONENT_MAP.items():
-                quantity = determine_quantity(configuration)
-                unit_price = calculations.get_item_price(
-                    item, 
-                    configuration, 
-                    discount, 
-                    conn)
-                cost = quantity * unit_price
-                record = {
-                    "year": i,
-                    "component": component,
-                    "item": item,
-                    "description": configuration.get("description", ""),
-                    "quantity": quantity,
-                    "unit_price": unit_price,
-                    "cost": cost
-                }
+            records = calculations.calculate_component(
+                component=component,
+                country=country,
+                year=i,
+                conn=conn
+            )
+            for record, recorded_currency_information in records:
+                record = calculations.rebase_currency(
+                    record=record,
+                    currency=currency,
+                    currency_year=currency_year,
+                    current_discount=current_discount,
+                    recorded_currency = recorded_currency_information[0],
+                    recorded_currency_year = recorded_currency_information[1]
+                )
+
                 results.append(record)
 
     df = pd.DataFrame(results)
