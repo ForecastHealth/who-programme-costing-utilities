@@ -1,4 +1,470 @@
 [
-    :w
-
+    {
+        "description": "Training - NCD Policy",
+        "division": "national",
+        "frequency": 1,
+        "scale": 2,
+        "days": 5,
+        "attendees": [
+            [
+                "national experts",
+                "visiting",
+                4,
+                4
+            ],
+            [
+                "local experts",
+                "visiting",
+                20,
+                20
+            ],
+            [
+                "support staff",
+                "local",
+                2,
+                0
+            ]
+        ],
+        "room_size": 200
+    },
+    {
+        "description": "Training - NCD Policy",
+        "division": "provincial",
+        "frequency": 1,
+        "scale": 1,
+        "days": 3,
+        "attendees": [
+            [
+                "national experts",
+                "visiting",
+                1,
+                1
+            ],
+            [
+                "local experts",
+                "visiting",
+                20,
+                20
+            ],
+            [
+                "support staff",
+                "local",
+                2,
+                0
+            ]
+        ],
+        "room_size": 200
+    },
+    {
+        "description": "Training - NCD Policy",
+        "division": "district",
+        "frequency": 3,
+        "scale": 0.1,
+        "days": 3,
+        "attendees": [
+            [
+                "national experts",
+                "visiting",
+                1,
+                1
+            ],
+            [
+                "local experts",
+                "visiting",
+                20,
+                20
+            ],
+            [
+                "support staff",
+                "local",
+                2,
+                0
+            ]
+        ],
+        "room_size": 200
+    },
+    {
+        "description": "Training - NCD Management in Primary Care",
+        "division": "national",
+        "frequency": 1,
+        "scale": 2,
+        "days": 2,
+        "attendees": [
+            [
+                "national experts",
+                "visiting",
+                4,
+                4
+            ],
+            [
+                "local experts",
+                "visiting",
+                20,
+                20
+            ],
+            [
+                "support staff",
+                "local",
+                2,
+                0
+            ]
+        ],
+        "room_size": 200
+    },
+    {
+        "description": "Training - NCD Management in Primary Care",
+        "division": "provincial",
+        "frequency": 1,
+        "scale": 0.333,
+        "days": 2,
+        "attendees": [
+            [
+                "national experts",
+                "visiting",
+                1,
+                1
+            ],
+            [
+                "local experts",
+                "visiting",
+                20,
+                20
+            ],
+            [
+                "support staff",
+                "local",
+                2,
+                0
+            ]
+        ],
+        "room_size": 200
+    },
+    {
+        "description": "Training - NCD Management in Primary Care",
+        "division": "district",
+        "frequency": 3,
+        "scale": 0.01,
+        "days": 2,
+        "attendees": [
+            [
+                "national experts",
+                "visiting",
+                1,
+                1
+            ],
+            [
+                "local experts",
+                "visiting",
+                20,
+                20
+            ],
+            [
+                "support staff",
+                "local",
+                2,
+                0
+            ]
+        ],
+        "room_size": 200
+    },
+    {
+        "description": "Training - Development of Training materials",
+        "division": "national",
+        "frequency": 0,
+        "scale": 2,
+        "days": 2,
+        "attendees": [
+            [
+                "national experts",
+                "visiting",
+                4,
+                4
+            ],
+            [
+                "local experts",
+                "visiting",
+                20,
+                5
+            ],
+            [
+                "support staff",
+                "local",
+                2,
+                0
+            ]
+        ],
+        "room_size": 200
+    },
+    {
+        "description": "Training - Development of Training materials",
+        "division": "provincial",
+        "frequency": 0,
+        "scale": 1,
+        "days": 2,
+        "attendees": [
+            [
+                "national experts",
+                "visiting",
+                1,
+                1
+            ]
+        ],
+        "room_size": 200
+    },
+    {
+        "description": "Training - Development of Training materials",
+        "division": "district",
+        "frequency": 0,
+        "scale": 0.01,
+        "days": 1,
+        "attendees": [
+            [
+                "national experts",
+                "visiting",
+                1,
+                1
+            ]
+        ],
+        "room_size": 200
+    },
+    {
+        "description": "Meetings - Coordination and Planning",
+        "division": "national",
+        "frequency": 1,
+        "scale": 1,
+        "days": 3,
+        "attendees": [
+            [
+                "national experts",
+                "visiting",
+                4,
+                4
+            ],
+            [
+                "local experts",
+                "visiting",
+                20,
+                20
+            ],
+            [
+                "support staff",
+                "local",
+                2,
+                0
+            ]
+        ],
+        "room_size": 200
+    },
+    {
+        "description": "Meetings - Coordination and Planning",
+        "division": "provincial",
+        "frequency": 1,
+        "scale": 1,
+        "days": 3,
+        "attendees": [
+            [
+                "national experts",
+                "visiting",
+                1,
+                1
+            ],
+            [
+                "local experts",
+                "visiting",
+                20,
+                20
+            ],
+            [
+                "support staff",
+                "local",
+                2,
+                0
+            ]
+        ],
+        "room_size": 200
+    },
+    {
+        "description": "Meetings - Coordination and Planning",
+        "division": "district",
+        "frequency": 1,
+        "scale": 0.1,
+        "days": 3,
+        "attendees": [
+            [
+                "national experts",
+                "visiting",
+                1,
+                1
+            ],
+            [
+                "local experts",
+                "visiting",
+                20,
+                0
+            ],
+            [
+                "support staff",
+                "local",
+                2,
+                0
+            ]
+        ],
+        "room_size": 200
+    },
+    {
+        "description": "Meetings - Monitoring and Evaluation",
+        "division": "national",
+        "frequency": 1,
+        "scale": 1,
+        "days": 3,
+        "attendees": [
+            [
+                "national experts",
+                "visiting",
+                4,
+                4
+            ],
+            [
+                "local experts",
+                "visiting",
+                20,
+                20
+            ],
+            [
+                "support staff",
+                "local",
+                2,
+                0
+            ]
+        ],
+        "room_size": 200
+    },
+    {
+        "description": "Meetings - Monitoring and Evaluation",
+        "division": "provincial",
+        "frequency": 1,
+        "scale": 1,
+        "days": 3,
+        "attendees": [
+            [
+                "national experts",
+                "visiting",
+                1,
+                1
+            ],
+            [
+                "local experts",
+                "visiting",
+                20,
+                20
+            ],
+            [
+                "support staff",
+                "local",
+                2,
+                0
+            ]
+        ],
+        "room_size": 200
+    },
+    {
+        "description": "Meetings - Monitoring and Evaluation",
+        "division": "district",
+        "frequency": 1,
+        "scale": 0.1,
+        "days": 3,
+        "attendees": [
+            [
+                "national experts",
+                "visiting",
+                1,
+                1
+            ],
+            [
+                "local experts",
+                "visiting",
+                20,
+                20
+            ],
+            [
+                "support staff",
+                "local",
+                2,
+                0
+            ]
+        ],
+        "room_size": 200
+    },
+    {
+        "description": "Supervision",
+        "division": "national",
+        "frequency": 0,
+        "scale": 1,
+        "days": 3,
+        "attendees": [
+            [
+                "national experts",
+                "visiting",
+                2,
+                2
+            ]
+        ],
+        "room_size": 200
+    },
+    {
+        "description": "Supervision",
+        "division": "provincial",
+        "frequency": 1,
+        "scale": 1,
+        "days": 2,
+        "attendees": [
+            [
+                "national experts",
+                "visiting",
+                1,
+                1
+            ],
+            [
+                "local experts",
+                "visiting",
+                20,
+                20
+            ],
+            [
+                "support staff",
+                "local",
+                2,
+                0
+            ]
+        ],
+        "room_size": 200
+    },
+    {
+        "description": "Supervision",
+        "division": "district",
+        "frequency": 1,
+        "scale": 0.1,
+        "days": 2,
+        "attendees": [
+            [
+                "national experts",
+                "visiting",
+                1,
+                1
+            ],
+            [
+                "local experts",
+                "visiting",
+                20,
+                20
+            ],
+            [
+                "support staff",
+                "local",
+                2,
+                0
+            ]
+        ],
+        "room_size": 200
+    }
 ]
