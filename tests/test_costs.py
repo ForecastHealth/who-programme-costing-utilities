@@ -67,25 +67,25 @@ class TestPersonnel(unittest.TestCase):
     def test_cadre_1(self):
         """Test calculating the annual salary of a cadre."""
         self.assertEqual(
-            calculations.calculate_personnel_annual_salary(self.country, 1, self.conn)[0], 6741.5
+            calculations.serve_personnel_annual_salary(self.country, 1, self.conn)[0], 6741.5
         )
 
     def test_cadre_2(self):
         """Test calculating the annual salary of a cadre."""
         self.assertEqual(
-            calculations.calculate_personnel_annual_salary(self.country, 2, self.conn)[0], 8790.6
+            calculations.serve_personnel_annual_salary(self.country, 2, self.conn)[0], 8790.6
         )
 
     def test_cadre_3(self):
         """Test calculating the annual salary of a cadre."""
         self.assertEqual(
-            calculations.calculate_personnel_annual_salary(self.country, 3, self.conn)[0], 11605.54
+            calculations.serve_personnel_annual_salary(self.country, 3, self.conn)[0], 11605.54
         )
 
     def test_cadre_4(self):
         """Test calculating the annual salary of a cadre."""
         self.assertEqual(
-            calculations.calculate_personnel_annual_salary(self.country, 4, self.conn)[0], 18791.08
+            calculations.serve_personnel_annual_salary(self.country, 4, self.conn)[0], 18791.08
         )
 
     def test_normalized_fte_national(self):
@@ -137,12 +137,12 @@ class TestConsumable(unittest.TestCase):
 
     def test_paper(self):
         """Test getting the price of paper."""
-        self.assertEqual(calculations.serve_consumable_cost("Paper plain", self.conn)[0], 0.02171)
+        self.assertEqual(calculations.serve_supply_costs("Paper plain", self.conn)[0], 0.02171)
 
     def test_photocopier(self):
         """Test getting the price of paper."""
         item = "Multifunciton Photocopier, Fax, Printer and Scanner "
-        self.assertEqual(calculations.serve_consumable_cost(item, self.conn)[0], 2199)
+        self.assertEqual(calculations.serve_supply_costs(item, self.conn)[0], 2199)
 
 
 class TestPerDiem(unittest.TestCase):
@@ -239,7 +239,7 @@ class TestMeetings(unittest.TestCase):
             ("Local Professional Staff", "visiting", 20, True),
             ("Support Staff", "local", 2, False)
         ]
-        national_workshop_records = calculations.serve_meeting_costs(
+        national_workshop_records = calculations.get_meeting_records(
             country=self.country,
             year=self.year,
             division="national",
@@ -259,7 +259,7 @@ class TestMeetings(unittest.TestCase):
             ("Local Professional Staff", "visiting", 20, True),
             ("Support Staff", "local", 2, False)
         ]
-        provincial_workshop_records = calculations.serve_meeting_costs(
+        provincial_workshop_records = calculations.get_meeting_records(
             country=self.country,
             year=self.year,
             division="national",
@@ -272,7 +272,7 @@ class TestMeetings(unittest.TestCase):
         ...
 
 
-class CalculateVehicles(unittest.TestCase):
+class TestCalculateVehicles(unittest.TestCase):
     """
     Calculate operating costs for vehicles.
     """
@@ -294,14 +294,33 @@ class CalculateVehicles(unittest.TestCase):
             consumption, 0.0668
         )
 
+class TestCalculateDiscount(unittest.TestCase):
+    """
+    Test the calculate_discount method.
+    """
+    def test_discount_year_1(self):
+        r = 1.03
+        year = 2020
+        start = 2020
+        discount = calculations.calculate_discount(r, year, start)
 
-class TestCostRebasing(unittest.TestCase):
-    ...
+        self.assertEqual(discount, 1)
 
+    def test_discount_year_2(self):
+        r = 1.03
+        year = 2021
+        start = 2020
+        discount = calculations.calculate_discount(r, year, start)
 
-class TestAnnualCosts(unittest.TestCase):
-    ...
+        self.assertEqual(discount, 1 / 1.03)
 
+    def test_discount_year_10(self):
+        r = 1.03
+        year = 2030
+        start = 2020
+        discount = calculations.calculate_discount(r, year, start)
+
+        self.assertEqual(discount, 1 / 1.03**10)
 
 class TestRebaseCurrency(unittest.TestCase):
     """
@@ -537,4 +556,20 @@ class TestRebaseCurrency(unittest.TestCase):
 
 
     def test_discount_rate(self):
+        cost = 100.00
+        cost_country = "USD"
+        rebase_country = "USD"
+        cost_year = 2018
+        rebase_year = 2018
+        cost_information = calculations.rebase_currency(
+            cost,
+            cost_country,
+            cost_year,
+            rebase_country,
+            rebase_year,
+            0.1,
+            self.conn
+        )
+
+        self.assertAlmostEqual(cost_information[0], 10, 2)
         ...

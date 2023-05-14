@@ -333,7 +333,7 @@ def get_media_records(component, conn, country, year, start_year):
     division = component["division"]
     division_health_facilities = HEALTH_FACILITY_MAPPING[division]
 
-    cost, currency_information = serve_supply_costs(label, conn)
+    cost, currency_information = calculate_mass_media_costs(label, country, year, conn)
 
     for health_facility_type in division_health_facilities:
         # get the number of health facilities
@@ -965,3 +965,78 @@ def serve_healthcare_facilities(country, label, conn):
 
     result = cursor.fetchone()
     return result[0]
+
+
+def calculate_mass_media_costs(media_type, country, year, conn):
+    """
+    Calculate the costs of mass media entries.
+
+    Parameters
+    ----------
+    country : str
+        The ISO3 code of the country.
+    year : int
+        The year of the costs.
+    conn : sqlite3.Connection
+        The connection to the database.
+
+    Returns
+    -------
+    tuple
+        (cost, currency, year)
+    """
+    GDP_MAPPING = {
+        "Television time (minutes)": 0.68,
+        "Radio time (minutes)": 0.12,
+        "Newspapers (100 word insert)": 0.58,
+        "Wall posters": 0.28,
+        "Flyers / leaflets": 0.06
+    }
+    cost, _, _ = serve_gdp_per_capita(country, year, conn)
+    cost *= GDP_MAPPING[media_type]
+    return cost, (country, year)
+
+
+def serve_gdp_per_capita(country, year, conn):
+    """
+    Return the GDP per capita of a country in a particular year.
+
+    Parameters
+    ----------
+    country : str
+        The ISO3 code of the country.
+    year : int
+        The year of the GDP per capita.
+    conn : sqlite3.Connection
+        The connection to the database.
+
+    Returns
+    -------
+    tuple
+        (cost, currency, year)
+    """
+    # TODO #8 Get GDP Forecasts to 2100
+    if year < 1960:
+        warnings.warn(
+            f"Year is {year}. "
+            "This is before the earliest year of the WB-GDP deflators. "
+            "Rebasing will not be accurate."
+            )
+        year = 1960
+    if year > 2021:
+        warnings.warn(
+            f"Year is {year}. "
+            "This is after the latest year of the WB-GDP deflators. "
+            "Rebasing will not be accurate."
+            )
+        year = 2021
+    query = f"""
+        SELECT "{year} [YR{year}]" FROM "economic_statistics"
+        WHERE "Country Code" = ?
+        AND "Series Name" = "GDP per capita, PPP (current international $)"
+        """
+    cursor = conn.cursor()
+    cursor.execute(query, (country, ))
+    cost = float(cursor.fetchone()[0])
+
+    return cost, "USD", year
