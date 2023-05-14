@@ -67,7 +67,7 @@ def run(data, conn):
                     records = calculations.get_meeting_records(component, conn, country, i, start)
             elif component_type == "media":
                 for component in component_list:
-                    records = calculations.get_media_records(component, conn, country, i, start)
+                    records = calculations.get_media_records(component, conn, country, i)
             
             # convert cost estimates to desired currency and year
             for record in records:

@@ -238,8 +238,58 @@ def get_meeting_records(component, conn, country, year, start_year):
     return records
 
 
-def get_media_records(component, conn, country, year, start_year):
-    ...
+def get_media_records(component, conn, country, year):
+    """
+    Return the records for media campaigns.
+    
+    Parameters
+    ----------
+    component : dict
+        The component of the intervention.
+    conn : sqlite3.Connection
+        The connection to the database.
+    country : str
+        The ISO3 code of the country.
+    year : int
+        The year of interest.
+
+    Component Kwargs
+    ----------------
+    label : str
+        The label of the component.
+    division : str
+        The statistical division of the media component.
+        National OR Provincial OR District
+
+    Returns
+    -------
+    list
+        each entry is a tuple of the form:
+
+    """
+    records = []
+
+    HEALTH_FACILITY_MAPPING = {
+        "national": ["regional_hospitals"],
+        "provincial": ["provincial_hospitals"],
+        "district": ["district_hospitals", "health_centres", "health_posts"]
+    }
+    label = component["label"]
+    division = component["division"]
+    division_health_facilities = HEALTH_FACILITY_MAPPING[division]
+
+    cost, currency_information = serve_supply_costs(country, label, conn)
+
+    for health_facility_type in division_health_facilities:
+        # get the number of health facilities
+        number_of_health_facilities = serve_healthcare_facilities(country, health_facility_type, conn)
+        # multiply by the cost
+        cost_per_health_facility = number_of_health_facilities * cost
+        # create the record
+        record_label = "{}: {}".format(label, health_facility_type)
+        record = (record_label, cost_per_health_facility, currency_information)
+        records.append(record)
+    return records
 
 
 def serve_population(country, year, conn) :
@@ -766,3 +816,34 @@ def serve_cadre_from_role(role):
     cadre = cadre_lookup[role]
 
     return cadre
+
+
+def serve_healthcare_facilities(country, label, conn):
+    """
+    Retrieve the number of health facilities in a country of a particular type.
+
+    Parameters
+    ----------
+    country : str
+        The ISO3 code of the country.
+    label : str
+        The type of health facility.
+    conn : sqlite3.Connection
+        The connection to the database.
+
+    Returns
+    -------
+    int
+        The number of health facilities.
+    """
+    query = """
+        SELECT {label}
+        FROM healthcare_facilities
+        WHERE ISO3 = ?
+        """
+
+    cursor = conn.cursor()
+    cursor.execute(query.format(label=label), (country, ))
+
+    result = cursor.fetchone()
+    return result[0]
