@@ -15,4 +15,4 @@ COPY . .
 EXPOSE 9475
 
 # Define the command to run your app with Uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "9475", "--reload"]
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "9475", "--reload"]
