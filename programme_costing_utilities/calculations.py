@@ -4,6 +4,29 @@ Provides the methods to calculate the personnel quantity and cost.
 import numpy as np
 import json
 
+def calculate_discount(discount_rate, year, start):
+    """
+    Calculate the discount for the given year
+
+    Assumes the discount rate is 1 + r e.g. 1.03
+    First year = year - year = 0 so discount is 1
+
+    Parameters
+    ----------
+    discount_rate : float
+        The discount rate.
+    year : int
+        The year.
+    start : int
+        The start year.
+
+    Returns
+    -------
+    float
+        The current discount to be applied this year
+    """
+    return discount_rate ** (year - start)
+
 
 def get_personnel_records(component, conn, country, year, start_year):
     """
@@ -757,68 +780,101 @@ def serve_per_diem(country, division, conn, local=False):
     return per_diem, (currency, year)
 
 
-def rebase_currency(cursor,  **kwargs):
+def rebase_currency(
+        cost,
+        current_country,
+        current_year,
+        desired_country,
+        desired_year,
+        discount,
+        conn
+    ):
     """
     Rebase a currency to a different currency and year (potentially).
+    FIXME #7 Haven't tested this thoroughly enough yet. Revisit.
 
     Parameters
     ----------
-    cursor : sqlite3.Connection.Cursor
     cost : float
-        The original cost of the item
-        NB - Currently assumes USD 2018
-    presentation_currency : str
-        The ISO-3 CODE for the country whose currency will be presented
-    currency_year : int
-        The desired year of the presented currency
+        The cost to rebase.
+    current_country : str
+        The ISO3 of the currency of the cost.
+    current_year : int
+        The year of the cost.
+    desired_country : str
+        The ISO3 of the currency to rebase to.
+    desired_year : int
+        The year to rebase to.
+    discount : float
+        The discount rate to apply.
+        NOTE - Assumes the discount rate has already been calculated.
+        e.g. a discount rate of 3% in year 2 is 1.03^2 = 1.0609
 
     Returns
     -------
-    float
-        The rebased cost
+    cost information
+        The desired cost information in the form of a tuple.
+        (cost, currency, year)
 
     Notes
     -----
-    Currently assumes the currency and year is USD 2018.
     Providing a different ISO-3 CODE will change via WB-PPP Rates.
     Providing a different year will chagne via WB GDP-deflators.
     Providing a different ISO-3 CODE and year will:
     - Change to different currency via WB-PPP rates
     - Rebase to desired year using WB-GDP deflators
     """
-    cost = kwargs["cost"]
-    presentation_currency = kwargs["presentation_currency"]
-    presentation_year = kwargs["presentation_year"]
+    # if either currency is called USD, change this to USA
+    if current_country == "USD":
+        current_country = "USA"
+    if desired_country == "USD":
+        desired_country = "USA"
 
-    if presentation_currency != "USA":
-        cursor.execute(
-            """
-            SELECT "2018" FROM "PPP_Conversion_Factor"
-            WHERE "Country Code" = ?
-            """, (presentation_currency, )
-            )
-        PPP_conversion_factor = cursor.fetchall()[0][0]
-        cost = cost * PPP_conversion_factor
+    cursor = conn.cursor()
 
-    if presentation_year != 2018:
-        cursor.execute(
-            """
-            SELECT * FROM "GDP_Deflator"
+    # convert to PPP, then convert from PPP to the desired country currency
+    if desired_country != current_country:
+        query = f"""
+            SELECT "{current_year} [YR{current_year}]" FROM "economic_statistics"
             WHERE "Country Code" = ?
-            """, (presentation_currency,)
-        )
-        gdp_deflators = cursor.fetchall()[0]
+            AND "Series Name" = "PPP conversion factor, GDP (LCU per international $)"
+            """
+        cursor.execute(query, (current_country, ))
+        to_PPP = float(cursor.fetchone()[0])
+        ppp = cost / to_PPP
+
+        query = f"""
+            SELECT "{current_year} [YR{current_year}]" FROM "economic_statistics"
+            WHERE "Country Code" = ?
+            AND "Series Name" = "PPP conversion factor, GDP (LCU per international $)"
+            """
+        cursor.execute(query, (desired_country, ))
+        to_PPP = float(cursor.fetchone()[0])
+        cost = ppp * to_PPP
+
+    # convert the current year to the desired year, using deflators
+    if current_year != desired_year:
+        query = """
+            SELECT * FROM "economic_statistics"
+            WHERE "Country Code" = ?
+            AND "Series Name" = "GDP deflator (base year varies by country)"
+            """
+        cursor.execute(query, (current_country, ))
+        gdp_deflators = cursor.fetchall()[0][4:]  # Before this is text
 
         first_year = 1960
-        requested_index = presentation_year - first_year + 1  # country column is index 0
-        current_index = 2018 - first_year + 1
-        gdp_deflator_current = gdp_deflators[current_index]
-        gdp_deflator_requested = gdp_deflators[requested_index]
+        requested_index = desired_year - first_year + 1  # country column is index 0
+        current_index = current_year - first_year + 1
+        gdp_deflator_requested = float(gdp_deflators[requested_index])
+        gdp_deflator_current = float(gdp_deflators[current_index])
 
         deflation_rate = gdp_deflator_requested / gdp_deflator_current
         cost = cost * deflation_rate
 
-    return cost
+    # apply discount
+    cost *= discount
+
+    return cost, desired_country, desired_year
 
 
 def serve_cadre_from_role(role):

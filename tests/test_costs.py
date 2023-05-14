@@ -298,5 +298,159 @@ class CalculateVehicles(unittest.TestCase):
 class TestCostRebasing(unittest.TestCase):
     ...
 
+
 class TestAnnualCosts(unittest.TestCase):
     ...
+
+
+class TestRebaseCurrency(unittest.TestCase):
+    """
+    Tests the rebase currency function.
+    """
+    def setUp(self):
+        self.conn = sqlite3.connect('./data/who_choice_price_database.db')
+
+    def test_no_rebase_needed(self):
+        """
+        Shouldn't need to do anything if both countries and years are the same.
+        """
+        cost = 12.00
+        cost_country = "USD"
+        rebase_country = "USD"
+        cost_year = 2019
+        rebase_year = 2019
+        cost_information = calculations.rebase_currency(
+            cost,
+            cost_country,
+            cost_year,
+            rebase_country,
+            rebase_year,
+            1,
+            self.conn
+        )
+
+        self.assertEqual(cost_information[0], cost)
+
+
+    def test_only_rebase_year(self):
+        """
+        Should only need to rebase the year.
+        """
+        cost = 12.00
+        cost_country = "USD"
+        rebase_country = "USD"
+        cost_year = 2019
+        rebase_year = 2020
+        cost_information = calculations.rebase_currency(
+            cost,
+            cost_country,
+            cost_year,
+            rebase_country,
+            rebase_year,
+            1,
+            self.conn
+        )
+
+        self.assertAlmostEqual(cost_information[0], 12.539, 3)
+
+
+    def test_year_out_of_bounds(self):
+        ...
+
+    def test_only_country_needed(self):
+        """
+        We're taking a cost from Great Britan of 10 (e.g. 10 pounds) in 2018.
+        We want to rebase it to Australia in 2018.
+        Presumably the sticker price should be higher.
+
+        Then, we're taking a cost from Japan of 10 (e.g. 10 yen) in 2018.
+        We want to rebase it to Australia in 2018.
+        Presumably the sticker price should be much lower.
+        """
+        cost = 10.00
+        cost_country = "GBR"
+        rebase_country = "AUS"
+        cost_year = 2018
+        rebase_year = 2018
+        cost_information = calculations.rebase_currency(
+            cost,
+            cost_country,
+            cost_year,
+            rebase_country,
+            rebase_year,
+            1,
+            self.conn
+        )
+
+        self.assertAlmostEqual(cost_information[0], 21.38, 2)
+
+        cost = 10.00
+        cost_country = "JPN"
+        rebase_country = "AUS"
+        cost_year = 2018
+        rebase_year = 2018
+        cost_information = calculations.rebase_currency(
+            cost,
+            cost_country,
+            cost_year,
+            rebase_country,
+            rebase_year,
+            1,
+            self.conn
+        )
+
+        self.assertAlmostEqual(cost_information[0], 0.14, 2)
+
+
+    def test_year_and_country(self):
+        """
+        We're taking a cost from Great Britan of 10 (e.g. 10 pounds) in 2018.
+        We want to rebase it to Australia in 1970.
+        Presumably the sticker price should be lower.
+        If you compared GBR to AUS in 2018, GBR would purchase more per dollar.
+        So 1 GBR would be worth >1 AUS.
+        But then that >1AUS would represented as a smaller dollar in 1970.
+        E.g. 10 dollars in AUD1970 might be worth 80 dollars in AUD2018.
+
+        Then, we're taking a cost from Japan of 10 (e.g. 10 yen) in 2000.
+        We want to rebase it to Australia in 2023.
+        Presumably the sticker price should be much lower.
+        But it should be higher than if the currency was taken from 2018?
+        """
+        cost = 10.00
+        cost_country = "GBR"
+        rebase_country = "AUS"
+        cost_year = 2018
+        rebase_year = 1970
+        cost_information = calculations.rebase_currency(
+            cost,
+            cost_country,
+            cost_year,
+            rebase_country,
+            rebase_year,
+            1,
+            self.conn
+        )
+
+        self.assertAlmostEqual(cost_information[0], 1.62, 2)
+
+        cost = 10.00
+        cost_country = "JPN"
+        rebase_country = "AUS"
+        cost_year = 2000
+        rebase_year = 2020
+        cost_information = calculations.rebase_currency(
+            cost,
+            cost_country,
+            cost_year,
+            rebase_country,
+            rebase_year,
+            1,
+            self.conn
+        )
+
+        self.assertAlmostEqual(cost_information[0], 0.078, 2)
+
+
+    def test_discount_rate(self):
+        ...

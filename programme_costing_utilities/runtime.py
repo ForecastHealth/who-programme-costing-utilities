@@ -2,31 +2,6 @@ import pandas as pd
 from programme_costing_utilities import calculations
 
 
-
-def calculate_discount(discount_rate, year, start):
-    """
-    Calculate the discount for the given year
-
-    Assumes the discount rate is 1 + r e.g. 1.03
-    First year = year - year = 0 so discount is 1
-
-    Parameters
-    ----------
-    discount_rate : float
-        The discount rate.
-    year : int
-        The year.
-    start : int
-        The start year.
-
-    Returns
-    -------
-    float
-        The current discount to be applied this year
-    """
-    return discount_rate ** (year - start)
-
-
 def run(data, conn):
     """
     Go through components, unpack them into individual elements and create a transaction record for that element.
@@ -62,7 +37,7 @@ def run(data, conn):
 
     for i in range(start, end + 1):  # inclusive of end
 
-        current_discount = calculate_discount(discount_rate, i, start)
+        discount = calculations.calculate_discount(discount_rate, i, start)
 
         for component_type, component_list in components.items():
             # collect records
@@ -72,14 +47,17 @@ def run(data, conn):
             
                 # convert cost estimates to desired currency and year
                 for record in records:
-                    #  record = calculations.rebase_currency(
-                        #  record=record,
-                        #  currency=currency,
-                        #  currency_year=currency_year,
-                        #  current_discount=current_discount,
-                        #  recorded_currency = record[1][0],
-                        #  recorded_currency_year = record[1][1]
-                    #  )
-                    results.append(record)
+                    log, resource_information, cost_information = record
+                    cost, cost_currency, cost_year = cost_information
+                    updated_cost_information = calculations.rebase_currency(
+                        cost=cost,
+                        cost_country=cost_currency,
+                        cost_year=cost_year,
+                        rebase_country=currency, 
+                        rebase_year=i, 
+                        discount=discount,
+                        conn=conn)
+                    updated_record = (log, resource_information, updated_cost_information)
+                    results.append(updated_record)
 
     return results
