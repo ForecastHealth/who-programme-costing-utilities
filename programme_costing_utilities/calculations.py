@@ -26,7 +26,7 @@ def calculate_discount(discount_rate, year, start):
     float
         The current discount to be applied this year
     """
-    return discount_rate ** (year - start)
+    return 1 / discount_rate ** (year - start)
 
 
 def get_personnel_records(component, conn, country, year, start_year):
@@ -118,7 +118,7 @@ def get_personnel_records(component, conn, country, year, start_year):
     cost_information = (salary, currency_information[0], currency_information[1])
 
     # add to records
-    record = (log, resource_information, cost_information)
+    record = (year, log, resource_information, cost_information)
     records.append(record)
 
     # determine their need for office supplies
@@ -130,7 +130,7 @@ def get_personnel_records(component, conn, country, year, start_year):
             log = f"Office supplies: {item['item']} for {role} ({cadre}) in {division} division, {fte} FTE, {activities} activities"
             resource_information = (role, division, fte * item["per person"])
 
-            record = (log, resource_information, cost_information)
+            record = (year, log, resource_information, cost_information)
             records.append(record)
 
     if role in NEED_CARS_AND_TRAVEL:
@@ -144,13 +144,13 @@ def get_personnel_records(component, conn, country, year, start_year):
         log = f"Transport: {role} ({cadre}) in {division} division, {fte} FTE, {activities} activities"
         resource_information = (role, division, fte)
         cost_information = (operational_cost, currency_information[0], currency_information[1])
-        record = (log, resource_information, cost_information)
+        record = (year, log, resource_information, cost_information)
         records.append(record)
 
         log = f"Fuel: {role} ({cadre}) in {division} division, {fte} FTE, {activities} activities"
         resource_information = (role, division, kms_driven)
         cost_information = (fuel_cost, currency_information[0], currency_information[1])
-        record = (log, resource_information, cost_information)
+        record = (year, log, resource_information, cost_information)
         records.append(record)
 
     return records
@@ -243,7 +243,7 @@ def get_meeting_records(component, conn, country, year, start_year):
     log = "Room hire for {} Room, {}m2 for {} days for {} meetings".format(division, room_size, days, number_of_meetings)
     resource_information = ("Room Size", division, room_size)
     cost_information = (room_hire_cost_total, currency_information[0], currency_information[1])
-    record = (log, resource_information, cost_information)
+    record = (year, log, resource_information, cost_information)
     records.append(record)
 
     # per diems for visiting attendees
@@ -257,7 +257,7 @@ def get_meeting_records(component, conn, country, year, start_year):
         log = "{}: Per diems for {} visiting attendees for {} days for {} meetings".format(attendee_label, quantity, days, number_of_meetings)
         resource_information = (attendee_label, division, quantity)
         cost_information = (cost, currency_information[0], currency_information[1])
-        record = (log, resource_information, cost_information)
+        record = (year, log, resource_information, cost_information)
         records.append(record)
 
     # opportunity cost (days of salary) for local attendees
@@ -271,7 +271,7 @@ def get_meeting_records(component, conn, country, year, start_year):
         log = "{}: Opportunity cost for {} local attendees for {} days for {} meetings".format(attendee_label, quantity, days, number_of_meetings)
         resource_information = (attendee_label, division, quantity)
         cost_information = (cost, currency_information[0], currency_information[1])
-        record = (log, resource_information, cost_information)
+        record = (year, log, resource_information, cost_information)
         records.append(record)
 
     # travel = attendees * ddist * operational cost of car
@@ -285,7 +285,7 @@ def get_meeting_records(component, conn, country, year, start_year):
         log = "{}: Travel for {} attendees for {} meetings".format(attendee_label, quantity, number_of_meetings)
         resource_information = (attendee_label, division, quantity)
         cost_information = (cost, currency_information[0], currency_information[1])
-        record = (log, resource_information, cost_information)
+        record = (year, log, resource_information, cost_information)
         records.append(record)
 
     return records
@@ -344,7 +344,7 @@ def get_media_records(component, conn, country, year, start_year):
         log = "{}: {}".format(label, health_facility_type)
         resource_information = (label, health_facility_type, number_of_health_facilities)
         cost_information = (cost_per_health_facility, currency_information[0], currency_information[1])
-        record = (log, resource_information, cost_information)
+        record = (year, log, resource_information, cost_information)
         records.append(record)
     return records
 

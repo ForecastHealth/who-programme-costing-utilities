@@ -27,7 +27,9 @@ def run(data, conn):
     desired_currency = data["desired_currency"]
     desired_year = data["desired_year"]
     components = data["components"]
-    results = []
+
+    table = []
+    logs = []
 
     FUNCTION_MAP = {
         "personnel": calculations.get_personnel_records,
@@ -47,7 +49,7 @@ def run(data, conn):
             
                 # convert cost estimates to desired currency and year
                 for record in records:
-                    log, resource_information, cost_information = record
+                    year, log, resource_information, cost_information = record
                     cost, cost_currency, cost_year = cost_information
                     updated_cost_information = calculations.rebase_currency(
                         cost=cost,
@@ -57,7 +59,22 @@ def run(data, conn):
                         desired_year=desired_year, 
                         discount=discount,
                         conn=conn)
-                    updated_record = (log, resource_information, updated_cost_information)
-                    results.append(updated_record)
 
-    return results
+                    logs.append(log)
+                    row = {
+                        "year": year,
+                        "component": component_type,
+                        "heading_1": resource_information[0],
+                        "heading_2": resource_information[1],
+                        "quantity": resource_information[2],
+                        "cost": updated_cost_information[0],
+                    }
+                    table.append(row)
+
+    table = pd.DataFrame(table)
+    return logs, table
+
+
+    table = pd.DataFrame(table)
+
+    return logs, table

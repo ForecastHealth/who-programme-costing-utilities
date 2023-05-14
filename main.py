@@ -13,8 +13,8 @@ with open("./templates/media.json", "r", encoding="utf-8") as file:
 DEFAULTS = {
     "country": "UGA",
     "start_year": 2020,
-    "end_year": 2020,
-    "discount_rate": 1,
+    "end_year": 2100,
+    "discount_rate": 1.03,
     "desired_currency": "USD",
     "desired_year": 2018,
     "components": {
@@ -27,7 +27,7 @@ DEFAULTS = {
 def get_args():
     parser = argparse.ArgumentParser(description='A utility for producing modular programme costs.')
     parser.add_argument('-i', '--input', required=True, help='Input JSON file')
-    parser.add_argument('-o', '--output', required=True, help='Output CSV file')
+    parser.add_argument('-o', '--output', required=True, help='Output filename')
     return parser.parse_args()
 
 def load_input_file(input_file):
@@ -43,8 +43,13 @@ def main():
     args = get_args()
     data = load_input_file(args.input)
     conn = load_database()
-    results = runtime.run(data, conn)
-    results.to_csv(args.output, index=False, encoding='utf-8')
+    logs, table = runtime.run(data, conn)
+    table_filename = args.output + ".csv"
+    table.to_csv(table_filename, index=False, encoding='utf-8')
+    logs_filename = args.output + "_logs.txt"
+    with open(logs_filename, "w") as f:
+        for s in logs:
+            f.write(s + "\n")
 
 if __name__ == '__main__':
     main()
