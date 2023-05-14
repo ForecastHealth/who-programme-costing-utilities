@@ -2,6 +2,7 @@ import pandas as pd
 from programme_costing_utilities import calculations
 
 
+
 def calculate_discount(discount_rate, year, start):
     """
     Calculate the discount for the given year
@@ -57,23 +58,27 @@ def run(data, conn):
 
         current_discount = calculate_discount(discount_rate, i)
 
-        for component in components:
-            records = calculations.calculate_component(
-                component=component,
-                country=country,
-                year=i,
-                conn=conn
-            )
-            for record, recorded_currency_information in records:
+        for component_type, component_list in components:
+            # collect records
+            if component_type == "personnel":
+                records = calculations.get_personnel_records(component_list, conn, country, i)
+            elif component_type == "meeting":
+                for component in component_list:
+                    records = calculations.get_meeting_records(component, conn, country, i, start)
+            elif component_type == "media":
+                for component in component_list:
+                    records = calculations.get_media_records(component, conn, country, i, start)
+            
+            # convert cost estimates to desired currency and year
+            for record in records:
                 record = calculations.rebase_currency(
                     record=record,
                     currency=currency,
                     currency_year=currency_year,
                     current_discount=current_discount,
-                    recorded_currency = recorded_currency_information[0],
-                    recorded_currency_year = recorded_currency_information[1]
+                    recorded_currency = record[1][0],
+                    recorded_currency_year = record[1][1]
                 )
-
                 results.append(record)
 
     df = pd.DataFrame(results)
