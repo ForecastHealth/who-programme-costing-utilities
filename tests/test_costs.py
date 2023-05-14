@@ -271,6 +271,7 @@ class TestMeetings(unittest.TestCase):
             annual_meetings=3)
         ...
 
+
 class CalculateVehicles(unittest.TestCase):
     """
     Calculate operating costs for vehicles.
@@ -292,6 +293,7 @@ class CalculateVehicles(unittest.TestCase):
         self.assertEqual(
             consumption, 0.0668
         )
+
 
 class TestCostRebasing(unittest.TestCase):
     ...

@@ -99,20 +99,6 @@
         },
         {
             "Programme Area": "Law enforcement / inspection",
-            "Role": "Superintendant",
-            "Division": "National",
-            "FTE": 0.000,
-            "Activities": "Supervision of new laws"
-        },
-        {
-            "Programme Area": "Law enforcement / inspection",
-            "Role": "Police Officer",
-            "Division": "National",
-            "FTE": 0.000,
-            "Activities": "Enforcement of new laws; inspection"
-        },
-        {
-            "Programme Area": "Law enforcement / inspection",
             "Role": "Lawyer",
             "Division": "National",
             "FTE": 0.250,
@@ -239,20 +225,6 @@
         },
         {
             "Programme Area": "Law enforcement / inspection",
-            "Role": "Superintendant",
-            "Division": "Provincial",
-            "FTE": 0.000,
-            "Activities": "Supervision of new laws"
-        },
-        {
-            "Programme Area": "Law enforcement / inspection",
-            "Role": "Police Officer",
-            "Division": "Provincial",
-            "FTE": 0.000,
-            "Activities": "Enforcement of new laws; inspection"
-        },
-        {
-            "Programme Area": "Law enforcement / inspection",
             "Role": "Lawyer",
             "Division": "Provincial",
             "FTE": 0.125,
@@ -278,13 +250,6 @@
             "Division": "Provincial",
             "FTE": 0.625,
             "Activities": ""
-        },
-        {
-            "Programme Area": "Programme management (incl. M&E)",
-            "Role": "Programme Director",
-            "Division": "District",
-            "FTE": null,
-            "Activities": "Oversight; Monitoring; Reporting"
         },
         {
             "Programme Area": "Programme management (incl. M&E)",
@@ -323,24 +288,10 @@
         },
         {
             "Programme Area": "Programme management (incl. M&E)",
-            "Role": "I.S./I.T./Computing Manager",
-            "Division": "District",
-            "FTE": null,
-            "Activities": "I.T. support"
-        },
-        {
-            "Programme Area": "Programme management (incl. M&E)",
             "Role": "I.T./Computing Officer",
             "Division": "District",
             "FTE": 0.063,
             "Activities": "I.T. support"
-        },
-        {
-            "Programme Area": "Programme management (incl. M&E)",
-            "Role": "Cleaner",
-            "Division": "District",
-            "FTE": 0.000,
-            "Activities": "General office maintenance"
         },
         {
             "Programme Area": "Promotion / media / advocay",
@@ -376,34 +327,6 @@
             "Division": "District",
             "FTE": 0.250,
             "Activities": ""
-        },
-        {
-            "Programme Area": "Law enforcement / inspection",
-            "Role": "Superintendant",
-            "Division": "District",
-            "FTE": 0.000,
-            "Activities": "Supervision of new laws"
-        },
-        {
-            "Programme Area": "Law enforcement / inspection",
-            "Role": "Police Officer",
-            "Division": "District",
-            "FTE": 0.000,
-            "Activities": "Enforcement of new laws; inspection"
-        },
-        {
-            "Programme Area": "Law enforcement / inspection",
-            "Role": "Lawyer",
-            "Division": "District",
-            "FTE": null,
-            "Activities": "Development of new laws"
-        },
-        {
-            "Programme Area": "Law enforcement / inspection",
-            "Role": "Legal Officer",
-            "Division": "District",
-            "FTE": 0.000,
-            "Activities": "Development of new laws"
         },
         {
             "Programme Area": "Law enforcement / inspection",

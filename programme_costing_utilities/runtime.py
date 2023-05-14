@@ -45,7 +45,7 @@ def run(data, conn):
     pandas.DataFrame
         The results.
     """
-    country = data["country_iso3"]
+    country = data["country"]
     start = data["start_year"]
     end = data["end_year"]
     discount_rate = data["discount_rate"]
@@ -54,34 +54,32 @@ def run(data, conn):
     components = data["components"]
     results = []
 
+    FUNCTION_MAP = {
+        "personnel": calculations.get_personnel_records,
+        "meetings": calculations.get_meeting_records,
+        "media": calculations.get_media_records
+    }
+
     for i in range(start, end + 1):  # inclusive of end
 
-        current_discount = calculate_discount(discount_rate, i)
+        current_discount = calculate_discount(discount_rate, i, start)
 
-        for component_type, component_list in components:
+        for component_type, component_list in components.items():
             # collect records
-            if component_type == "personnel":
-                records = calculations.get_personnel_records(component_list, conn, country, i)
-            elif component_type == "meeting":
-                for component in component_list:
-                    records = calculations.get_meeting_records(component, conn, country, i, start)
-            elif component_type == "media":
-                for component in component_list:
-                    records = calculations.get_media_records(component, conn, country, i)
+            func = FUNCTION_MAP[component_type]
+            for component in component_list:
+                records = func(component, conn, country, i, start)
             
-            # convert cost estimates to desired currency and year
-            for record in records:
-                record = calculations.rebase_currency(
-                    record=record,
-                    currency=currency,
-                    currency_year=currency_year,
-                    current_discount=current_discount,
-                    recorded_currency = record[1][0],
-                    recorded_currency_year = record[1][1]
-                )
-                results.append(record)
+                # convert cost estimates to desired currency and year
+                for record in records:
+                    #  record = calculations.rebase_currency(
+                        #  record=record,
+                        #  currency=currency,
+                        #  currency_year=currency_year,
+                        #  current_discount=current_discount,
+                        #  recorded_currency = record[1][0],
+                        #  recorded_currency_year = record[1][1]
+                    #  )
+                    results.append(record)
 
-    df = pd.DataFrame(results)
-    df.set_index('year', inplace=True)
-    df = df.T
-    return df
+    return results

@@ -5,7 +5,7 @@ import numpy as np
 import json
 
 
-def get_personnel_records(personnel, conn, country, year):
+def get_personnel_records(component, conn, country, year, start_year):
     """
     Return the personnel records for a given component in a given year.
     Here, personnel records refer to lists of annual salaries for persons involved in the project.
@@ -15,19 +15,18 @@ def get_personnel_records(personnel, conn, country, year):
 
     Parameters
     ----------
-    personnel : list
-        A list of personnel, each of which is a dict of the form
-        seen under the heading "Personnel kwargs" below.
+    component : dict
+        The component.
     conn : sqlite3.Connection
         The connection to the database.
     country : str
         The ISO3 code of the country.
     year : int
         The year of interest.
-    start_year : int
-        The start year of the programme.
+    _ : int
+        The start year of the programme. (NOT USED)
 
-    Personnel kwargs
+    Component kwargs
     ----------------
     Programme Area : str
         arbitrary label, can be empty
@@ -50,11 +49,11 @@ def get_personnel_records(personnel, conn, country, year):
     records = []
 
     NEED_CARS_AND_TRAVEL = ["Transport Driver"]
-    CAR_PREFERENCE = "Toyota Hiace Passenger van"
+    CAR_PREFERENCE = "Toyota Hiace passenger van"
     DONT_NEED_OFFICE_SUPPLIES = ["Cleaner", "Transport Driver"]
     OFFICE_SUPPLIES = [
         {
-            "item": "Computer",
+            "item": "Computer   ",
             "per person": 0.5,
             "useful life years": 5
         },
@@ -75,42 +74,62 @@ def get_personnel_records(personnel, conn, country, year):
         item["annualised cost"] = calculate_annualised_cost(unit_cost, item["useful life years"])
 
 
-    for person in personnel:
-        # unpack kwargs
-        programme_area = person["Programme Area"]
-        role = person["Role"]
-        division = person["Division"]
-        fte = fit_FTE(person["FTE"], country, year, division, conn)
-        activities = person["Activities"]
+    # unpack kwargs
+    programme_area = component["Programme Area"]
+    role = component["Role"]
+    division = component["Division"]
+    fte = fit_FTE(component["FTE"], country, year, division, conn)
+    activities = component["Activities"]
 
-        # get annual salary
-        cadre = serve_cadre_from_role(role)
-        annual_salary = serve_personnel_annual_salary(country, cadre, conn)
+    # get annual salary
+    cadre = serve_cadre_from_role(role)
+    annual_salary, currency_information = serve_personnel_annual_salary(country, cadre, conn)
 
-        # calculate salary for this year
-        salary = annual_salary * fte
+    # calculate salary for this year
+    salary = annual_salary * fte
 
-        # add to records
-        records.append((programme_area, role, division, fte, activities, salary))
+    # Write a log for this record
+    log = f"Personnel: {role} ({cadre}) in {division} division, {fte} FTE, {activities} activities"
+    resource_information = (role, division, fte)
+    cost_information = (salary, currency_information[0], currency_information[1])
 
-        # determine their need for office supplies
-        if role not in DONT_NEED_OFFICE_SUPPLIES:
-            for item in OFFICE_SUPPLIES:
-                cost = fte * item["per person"] * item["annualised cost"]
-                currency_information = (item["currency"], item["currency year"])
-                records.append((role, cost, currency_information))
+    # add to records
+    record = (log, resource_information, cost_information)
+    records.append(record)
 
-        if role in NEED_CARS_AND_TRAVEL:
-            # Each FTE needs half a car  TODO #6 - Interrogate this rule
-            cars_needed = fte * 0.5
-            km_per_car = calculate_km_travelled_per_year(division, CAR_PREFERENCE)
-            kms_driven = cars_needed * km_per_car
-            operational_cost, currency_information = serve_vehicle_operating_cost(CAR_PREFERENCE, conn)
-            fuel_cost, currency_information = serve_vehicle_fuel_consumption(CAR_PREFERENCE, conn)
+    # determine their need for office supplies
+    if role not in DONT_NEED_OFFICE_SUPPLIES:
+        for item in OFFICE_SUPPLIES:
+            cost = fte * item["per person"] * item["annualised cost"]
 
-            # add to records
-            records.append((role, kms_driven, operational_cost, currency_information))
-            records.append((role, kms_driven, fuel_cost, currency_information))
+            cost_information = (cost, item["currency"], item["currency year"])
+            log = f"Office supplies: {item['item']} for {role} ({cadre}) in {division} division, {fte} FTE, {activities} activities"
+            resource_information = (role, division, fte * item["per person"])
+
+            record = (log, resource_information, cost_information)
+            records.append(record)
+
+    if role in NEED_CARS_AND_TRAVEL:
+        # Each FTE needs half a car  TODO #6 - Interrogate this rule
+        cars_needed = fte * 0.5
+        km_per_car = calculate_km_travelled_per_year(division, CAR_PREFERENCE)
+        kms_driven = cars_needed * km_per_car
+        operational_cost, currency_information = serve_vehicle_operating_cost(CAR_PREFERENCE, conn)
+        fuel_cost, currency_information = serve_vehicle_fuel_consumption(CAR_PREFERENCE, conn)
+
+        log = f"Transport: {role} ({cadre}) in {division} division, {fte} FTE, {activities} activities"
+        resource_information = (role, division, fte)
+        cost_information = (operational_cost, currency_information[0], currency_information[1])
+        record = (log, resource_information, cost_information)
+        records.append(record)
+
+        log = f"Fuel: {role} ({cadre}) in {division} division, {fte} FTE, {activities} activities"
+        resource_information = (role, division, kms_driven)
+        cost_information = (fuel_cost, currency_information[0], currency_information[1])
+        record = (log, resource_information, cost_information)
+        records.append(record)
+
+    return records
 
 
 def get_meeting_records(component, conn, country, year, start_year):
@@ -193,52 +212,62 @@ def get_meeting_records(component, conn, country, year, start_year):
 
     number_of_meetings = serve_number_of_divisions(country, division, conn) * scale
 
-    for meeting in range(number_of_meetings):
+    # room hire
+    room_hire_cost_per_day, currency_information = calculate_room_hire(country, division, year, room_size, conn)
+    room_hire_cost_total = room_hire_cost_per_day * days * number_of_meetings
 
-        # room hire
-        room_hire_cost_per_day, currency_information = calculate_room_hire(country, division, year, room_size, conn)
-        room_hire_cost_total = room_hire_cost_per_day * days
-        label = "Meeting {}: Room hire for {} Room, {}m2 for {} days".format(meeting, division, room_size, days)
-        record = (label, room_hire_cost_total, currency_information)
+    log = "Room hire for {} Room, {}m2 for {} days for {} meetings".format(division, room_size, days, number_of_meetings)
+    resource_information = ("Room Size", division, room_size)
+    cost_information = (room_hire_cost_total, currency_information[0], currency_information[1])
+    record = (log, resource_information, cost_information)
+    records.append(record)
+
+    # per diems for visiting attendees
+    # days * attendees * per_diems
+    visiting_attendees = [a for a in attendees if a[1] == "visiting"]
+    per_diems, currency_information = serve_per_diem(country, division, conn, True)
+    for visiting_attendee in visiting_attendees:
+        attendee_label, _, quantity, _ = visiting_attendee
+        cost = days * quantity * per_diems * number_of_meetings
+
+        log = "{}: Per diems for {} visiting attendees for {} days for {} meetings".format(attendee_label, quantity, days, number_of_meetings)
+        resource_information = (attendee_label, division, quantity)
+        cost_information = (cost, currency_information[0], currency_information[1])
+        record = (log, resource_information, cost_information)
         records.append(record)
 
-        # per diems for visiting attendees
-        # days * attendees * per_diems
-        visiting_attendees = [a for a in attendees if a[1] == "visiting"]
-        per_diems, currency_information = serve_per_diem(country, division, conn, True)
-        for visiting_attendee in visiting_attendees:
-            attendee_label, _, quantity, _ = visiting_attendee
-            record_label = "Meeting {}: {}: Per diems for {} visiting attendees for {} days".format(meeting, attendee_label, quantity, days)
-            cost = days * quantity * per_diems
-            record = (record_label, cost, currency_information)
-            records.append(record)
+    # opportunity cost (days of salary) for local attendees
+    local_attendees = [a for a in attendees if a[1] == "local"]
+    cadre = 2  # FIXME #2 - Assuming cadre of support staff is 2
+    daily_salary, currency_information = calculate_daily_salary(country, cadre, conn)
+    for local_attendee in local_attendees:
+        attendee_label, _, quantity, _ = local_attendee
+        cost = days * quantity * daily_salary * number_of_meetings
 
-        # opportunity cost (days of salary) for local attendees
-        local_attendees = [a for a in attendees if a[1] == "local"]
-        cadre = 2  # FIXME #2 - Assuming cadre of support staff is 2
-        daily_salary, currency_information = calculate_daily_salary(country, cadre, conn)
-        for local_attendee in local_attendees:
-            attendee_label, _, quantity, _ = local_attendee
-            record_label = "Meeting {}: {}: Opportunity cost for {} local attendees for {} days".format(meeting, attendee_label, quantity, days)
-            cost = days * quantity * daily_salary
-            record = (record_label, cost, currency_information)
-            records.append(record)
+        log = "{}: Opportunity cost for {} local attendees for {} days for {} meetings".format(attendee_label, quantity, days, number_of_meetings)
+        resource_information = (attendee_label, division, quantity)
+        cost_information = (cost, currency_information[0], currency_information[1])
+        record = (log, resource_information, cost_information)
+        records.append(record)
 
-        # travel = attendees * ddist * operational cost of car
-        vehicle_operating_cost_per_km, currency_information = serve_vehicle_operating_cost(preferred_vehicle, conn)
-        distance_travelled_in_km = serve_distance_between_regions(country, "DDist95", conn)  # FIXME #3 - Interrogate this assumption
-        cost_of_travel_per_attendee = distance_travelled_in_km * vehicle_operating_cost_per_km
-        for attendee in attendees:
-            attendee_label, _, _, quantity = attendee
-            record_label = "Meeting {}: {}: Travel for {} attendees".format(meeting, attendee_label, quantity)
-            cost = quantity * cost_of_travel_per_attendee
-            record = (record_label, cost, currency_information)
-            records.append(record)
+    # travel = attendees * ddist * operational cost of car
+    vehicle_operating_cost_per_km, currency_information = serve_vehicle_operating_cost(preferred_vehicle, conn)
+    distance_travelled_in_km = serve_distance_between_regions(country, "DDist95", conn)  # FIXME #3 - Interrogate this assumption
+    cost_of_travel_per_attendee = distance_travelled_in_km * vehicle_operating_cost_per_km
+    for attendee in attendees:
+        attendee_label, _, _, quantity = attendee
+        cost = quantity * cost_of_travel_per_attendee * number_of_meetings
+
+        log = "{}: Travel for {} attendees for {} meetings".format(attendee_label, quantity, number_of_meetings)
+        resource_information = (attendee_label, division, quantity)
+        cost_information = (cost, currency_information[0], currency_information[1])
+        record = (log, resource_information, cost_information)
+        records.append(record)
 
     return records
 
 
-def get_media_records(component, conn, country, year):
+def get_media_records(component, conn, country, year, start_year):
     """
     Return the records for media campaigns.
     
@@ -250,8 +279,10 @@ def get_media_records(component, conn, country, year):
         The connection to the database.
     country : str
         The ISO3 code of the country.
-    year : int
-        The year of interest.
+    _ : int
+        The year of interest NOT USED.
+    _ : int
+        The start year of the programme, NOT USED.
 
     Component Kwargs
     ----------------
@@ -278,7 +309,7 @@ def get_media_records(component, conn, country, year):
     division = component["division"]
     division_health_facilities = HEALTH_FACILITY_MAPPING[division]
 
-    cost, currency_information = serve_supply_costs(country, label, conn)
+    cost, currency_information = serve_supply_costs(label, conn)
 
     for health_facility_type in division_health_facilities:
         # get the number of health facilities
@@ -286,8 +317,10 @@ def get_media_records(component, conn, country, year):
         # multiply by the cost
         cost_per_health_facility = number_of_health_facilities * cost
         # create the record
-        record_label = "{}: {}".format(label, health_facility_type)
-        record = (record_label, cost_per_health_facility, currency_information)
+        log = "{}: {}".format(label, health_facility_type)
+        resource_information = (label, health_facility_type, number_of_health_facilities)
+        cost_information = (cost_per_health_facility, currency_information[0], currency_information[1])
+        record = (log, resource_information, cost_information)
         records.append(record)
     return records
 
@@ -470,7 +503,7 @@ def calculate_daily_salary(country, cadre, conn):
         The daily salary.
         A tuple of the currency and currency_year
     """
-    annual_salary, currency_information = calculate_personnel_annual_salary(country, cadre, conn)
+    annual_salary, currency_information = serve_personnel_annual_salary(country, cadre, conn)
     DAYS_WORKED_PER_YEAR = 230  # FIXME #1 - Should interrogate this assumption
     daily_salary = annual_salary / DAYS_WORKED_PER_YEAR
     return daily_salary, currency_information
@@ -523,8 +556,6 @@ def calculate_annualised_cost(unit_cost, useful_life_years):
         The annualised cost of the equipment.
     """
     return unit_cost / useful_life_years
-
-
 
 
 def serve_vehicle_operating_cost(vehicle, conn):
@@ -788,6 +819,7 @@ def rebase_currency(cursor,  **kwargs):
         cost = cost * deflation_rate
 
     return cost
+
 
 def serve_cadre_from_role(role):
     """
