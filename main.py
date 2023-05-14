@@ -1,15 +1,27 @@
 import argparse
 import json
 import sqlite3
-from programme_costing_utilities import runtime, components
+from programme_costing_utilities import runtime
+
+with open("./templates/personnel.json", "r", encoding="utf-8") as file:
+    default_personnel = json.load(file)
+with open("./templates/meetings.json", "r", encoding="utf-8") as file:
+    default_meetings = json.load(file)
+with open("./templates/media.json", "r", encoding="utf-8") as file:
+    default_media = json.load(file)
+
 DEFAULTS = {
-    'country_iso3': "UGA",
-    'start_year': 2023,
-    'end_year': 2030,
-    'discount_rate': 1,
-    'currency': 'USD',
-    'currency_year': 2018,
-    'components': components.DEFAULT_COMPONENTS
+    "country": "UGA",
+    "start_year": 2023,
+    "end_year": 2030,
+    "discount_rate": 1,
+    "currency": "USD",
+    "currency_year": 2018,
+    "components": {
+        "personnel": default_personnel,
+        "meetings": default_meetings,
+        "media": default_media
+    }
 }
 
 def get_args():
