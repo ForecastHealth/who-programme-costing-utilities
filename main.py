@@ -12,11 +12,11 @@ with open("./templates/media.json", "r", encoding="utf-8") as file:
 
 DEFAULTS = {
     "country": "UGA",
-    "start_year": 2023,
-    "end_year": 2030,
+    "start_year": 2020,
+    "end_year": 2020,
     "discount_rate": 1,
-    "currency": "USD",
-    "currency_year": 2018,
+    "desired_currency": "USD",
+    "desired_year": 2018,
     "components": {
         "personnel": default_personnel,
         "meetings": default_meetings,

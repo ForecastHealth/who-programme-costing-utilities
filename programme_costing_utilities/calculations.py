@@ -3,6 +3,7 @@ Provides the methods to calculate the personnel quantity and cost.
 """
 import numpy as np
 import json
+import warnings
 
 def calculate_discount(discount_rate, year, start):
     """
@@ -830,6 +831,35 @@ def rebase_currency(
     if desired_country == "USD":
         desired_country = "USA"
 
+    if current_year < 1960:
+        warnings.warn(
+            f"Current year is {current_year}. "
+            "This is before the earliest year of the WB-GDP deflators. "
+            "Rebasing will not be accurate."
+            )
+        current_year = 1960
+    if desired_year < 1960:
+        warnings.warn(
+            f"Desired year is {current_year}. "
+            "This is before the earliest year of the WB-GDP deflators. "
+            "Rebasing will not be accurate."
+            )
+        desired_year = 1960
+    if current_year > 2021:
+        warnings.warn(
+            f"Current year is {current_year}. "
+            "This is after the latest year of the WB-GDP deflators. "
+            "Rebasing will not be accurate."
+            )
+        current_year = 2021
+    if desired_year > 2021:
+        warnings.warn(
+            f"Desired year is {current_year}. "
+            "This is after the latest year of the WB-GDP deflators. "
+            "Rebasing will not be accurate."
+            )
+        desired_year = 2021
+
     cursor = conn.cursor()
 
     # convert to PPP, then convert from PPP to the desired country currency
@@ -863,8 +893,8 @@ def rebase_currency(
         gdp_deflators = cursor.fetchall()[0][4:]  # Before this is text
 
         first_year = 1960
-        requested_index = desired_year - first_year + 1  # country column is index 0
-        current_index = current_year - first_year + 1
+        requested_index = desired_year - first_year
+        current_index = current_year - first_year
         gdp_deflator_requested = float(gdp_deflators[requested_index])
         gdp_deflator_current = float(gdp_deflators[current_index])
 

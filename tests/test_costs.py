@@ -351,11 +351,95 @@ class TestRebaseCurrency(unittest.TestCase):
             self.conn
         )
 
-        self.assertAlmostEqual(cost_information[0], 12.539, 3)
+        self.assertAlmostEqual(cost_information[0], 12.16, 2)
 
 
     def test_year_out_of_bounds(self):
-        ...
+        """
+        Make sure the bounds are correct, and that out of bounds raise warnings,
+        """
+        cost = 10
+        cost_country = "USD"
+        rebase_country = "USD"
+        cost_year = 2019
+        rebase_year = 2022
+        cost_information_2022 = calculations.rebase_currency(
+            cost,
+            cost_country,
+            cost_year,
+            rebase_country,
+            rebase_year,
+            1,
+            self.conn
+        )
+
+        rebase_year = 2021
+        cost_information_2021 = calculations.rebase_currency(
+            cost,
+            cost_country,
+            cost_year,
+            rebase_country,
+            rebase_year,
+            1,
+            self.conn
+        )
+
+        rebase_year = 2020
+        cost_information_2020 = calculations.rebase_currency(
+            cost,
+            cost_country,
+            cost_year,
+            rebase_country,
+            rebase_year,
+            1,
+            self.conn
+        )
+
+        cost_2020 = cost_information_2020[0]
+        cost_2021 = cost_information_2021[0]
+        cost_2022 = cost_information_2022[0]
+        self.assertEqual(cost_2021, cost_2022)
+        self.assertNotEqual(cost_2020, cost_2021)
+
+        cost_year = 1959
+        rebase_year = 2022
+        cost_information_1959 = calculations.rebase_currency(
+            cost,
+            cost_country,
+            cost_year,
+            rebase_country,
+            rebase_year,
+            1,
+            self.conn
+        )
+
+        cost_year = 1960
+        cost_information_1960 = calculations.rebase_currency(
+            cost,
+            cost_country,
+            cost_year,
+            rebase_country,
+            rebase_year,
+            1,
+            self.conn
+        )
+
+        cost_year = 1961
+        cost_information_1961 = calculations.rebase_currency(
+            cost,
+            cost_country,
+            cost_year,
+            rebase_country,
+            rebase_year,
+            1,
+            self.conn
+        )
+
+        cost_1959 = cost_information_1959[0]
+        cost_1960 = cost_information_1960[0]
+        cost_1961 = cost_information_1961[0]
+        self.assertEqual(cost_1959, cost_1960)
+        self.assertNotEqual(cost_1960, cost_1961)
 
     def test_only_country_needed(self):
         """
@@ -432,7 +516,7 @@ class TestRebaseCurrency(unittest.TestCase):
             self.conn
         )
 
-        self.assertAlmostEqual(cost_information[0], 1.62, 2)
+        self.assertAlmostEqual(cost_information[0], 1.53, 2)
 
         cost = 10.00
         cost_country = "JPN"

@@ -24,8 +24,8 @@ def run(data, conn):
     start = data["start_year"]
     end = data["end_year"]
     discount_rate = data["discount_rate"]
-    currency = data["currency"]
-    currency_year = data["currency_year"]
+    desired_currency = data["desired_currency"]
+    desired_year = data["desired_year"]
     components = data["components"]
     results = []
 
@@ -51,10 +51,10 @@ def run(data, conn):
                     cost, cost_currency, cost_year = cost_information
                     updated_cost_information = calculations.rebase_currency(
                         cost=cost,
-                        cost_country=cost_currency,
-                        cost_year=cost_year,
-                        rebase_country=currency, 
-                        rebase_year=i, 
+                        current_country=cost_currency,
+                        current_year=cost_year,
+                        desired_country=desired_currency, 
+                        desired_year=desired_year, 
                         discount=discount,
                         conn=conn)
                     updated_record = (log, resource_information, updated_cost_information)
