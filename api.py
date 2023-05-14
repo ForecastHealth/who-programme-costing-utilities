@@ -35,6 +35,7 @@ app = FastAPI()
 
 origins = [
     "https://pc.forecasthealth.org",
+    "https://pcapi.forecasthealth.org"
 ]
 
 app.add_middleware(
