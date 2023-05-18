@@ -73,8 +73,3 @@ def run(data, conn):
 
     table = pd.DataFrame(table)
     return logs, table
-
-
-    table = pd.DataFrame(table)
-
-    return logs, table
