@@ -16,13 +16,18 @@ DEFAULTS = {
     "end_year": 2100,
     "discount_rate": 1.03,
     "desired_currency": "USD",
-    "desired_year": 2018
+    "desired_year": 2018,
+    "components": {
+        "personnel": default_personnel,
+        "meetings": default_meetings,
+        "media": default_media
     }
+}
 
 def get_args():
     parser = argparse.ArgumentParser(description='A utility for producing modular programme costs.')
     parser.add_argument('-i', '--input', required=True, help='Input JSON file')
-    parser.add_argument('-o', '--output', required=True, help='Output filename')
+    parser.add_argument('-o', '--output', help='Output filename (optional, default: stdout)')
     return parser.parse_args()
 
 def load_input_file(input_file):
@@ -39,12 +44,16 @@ def main():
     data = load_input_file(args.input)
     conn = load_database()
     logs, table = runtime.run(data, conn)
-    table_filename = args.output + ".csv"
-    table.to_csv(table_filename, index=False, encoding='utf-8')
-    logs_filename = args.output + "_logs.txt"
-    with open(logs_filename, "w") as f:
-        for s in logs:
-            f.write(s + "\n")
+    if args.output:
+        table_filename = args.output + ".csv"
+        table.to_csv(table_filename, index=False, encoding='utf-8')
+        logs_filename = args.output + "_logs.txt"
+        with open(logs_filename, "w") as f:
+            for s in logs:
+                f.write(s + "\n")
+    else:
+        print(table)
+        print('\n'.join(logs))
 
 if __name__ == '__main__':
     main()
