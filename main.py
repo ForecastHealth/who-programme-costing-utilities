@@ -16,13 +16,8 @@ DEFAULTS = {
     "end_year": 2100,
     "discount_rate": 1.03,
     "desired_currency": "USD",
-    "desired_year": 2018,
-    "components": {
-        "personnel": default_personnel,
-        "meetings": default_meetings,
-        "media": default_media
+    "desired_year": 2018
     }
-}
 
 def get_args():
     parser = argparse.ArgumentParser(description='A utility for producing modular programme costs.')
