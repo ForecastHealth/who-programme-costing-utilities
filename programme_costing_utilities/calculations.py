@@ -985,6 +985,7 @@ def calculate_mass_media_costs(media_type, country, year, conn):
     tuple
         (cost, currency, year)
     """
+    # FIXME #9 Investigate the assumptions behind these costs
     GDP_MAPPING = {
         "Television time (minutes)": 0.68,
         "Radio time (minutes)": 0.12,
