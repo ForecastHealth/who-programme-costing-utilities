@@ -310,11 +310,8 @@ def get_media_records(component, conn, country, year, start_year):
 
     Component Kwargs
     ----------------
-    label : str
-        The label of the component.
-    division : str
-        The statistical division of the media component.
-        National OR Provincial OR District
+    Component kwargs are dependent on the type of media campaign.
+    Therefore, they are explained in more detail in their respective functions.
 
     Returns
     -------
@@ -322,19 +319,230 @@ def get_media_records(component, conn, country, year, start_year):
         each entry is a tuple of the form:
 
     """
-    records = []
+    media_to_function = {
+        "Radio time (minutes)": get_airtime_records,
+        "Television time (minutes)": get_airtime_records,
+        "Newspapers (100 word insert)": get_newspaper_records,
+        "Wall posters (per poster)": get_wall_poster_records,
+        "Flyers / leaflets (per leaflet)": get_flyers_leaflet_records,
+        "Social media": get_social_media_records,
+        "Text messaging": get_text_messaging_records
+    }
+    label = component["label"]
+    records = media_to_function[label](component, country, year, conn)
+    return  records
 
+
+def get_text_messaging_records(component, country, year, conn):
+    """
+    Calculate the annual cost of providing text messaging.
+    
+    Parameters
+    ----------
+    component : dict
+        The component of the intervention.
+    country : str
+        The ISO3 code of the country.
+    year : int
+        The year of interest.
+    conn : sqlite3.Connection
+        The connection to the database.
+
+    Returns
+    -------
+    list
+        a list of tuples of the form:
+        record = (year, log, resource_information, cost_information)
+    """
+    # FIXME This is a placeholder
+    return []
+
+
+def get_social_media_records(component, country, year, conn):
+    """
+    Calculate the annual cost of providing social media.
+
+    Parameters
+    ----------
+    component : dict
+        The component of the intervention.
+    country : str
+        The ISO3 code of the country.
+    year : int
+        The year of interest.
+    conn : sqlite3.Connection
+        The connection to the database.
+
+    Returns
+    -------
+    list
+        a list of tuples of the form:
+        record = (year, log, resource_information, cost_information)
+    """
+    # FIXME #4 - This is a placeholder function
+    return []
+
+
+def get_flyers_leaflet_records(component, country, year, conn):
+    """
+    Calculate the annual cost of providing flyers or leaflets.
+
+    Parameters
+    ----------
+    component : dict
+        The component of the intervention.
+    country : str
+        The ISO3 code of the country.
+    year : int
+        The year of interest.
+    conn : sqlite3.Connection
+        The connection to the database.
+
+    Returns
+    -------
+    list
+        a list of tuples of the form:
+        record = (year, log, resource_information, cost_information)
+    """
+
+
+def get_newspaper_records(component, country, year, conn):
+    """
+    Calculate the annual cost of providing newspaper inserts.
+
+    Newspapers are calculated by the number of words, and the number of inserts.
+
+    The component should provide the following kwargs (e.g.):    
+        "label": "Newspapers (100 word insert)",
+        "division": "national",
+        "Number of words per insert": 100,
+        "inserts per year": 10
+
+    NOTE - this function currently assumes 100 words per insert.
+
+    Parameters
+    ----------
+    component : dict
+        The component of the intervention.
+    country : str
+        The ISO3 code of the country.
+    year : int
+        The year of interest.
+    conn : sqlite3.Connection
+        The connection to the database.
+
+    Returns
+    -------
+    list
+        a list of tuples of the form:
+        record = (year, log, resource_information, cost_information)
+    """
+    label = component["label"]
+    division = component["division"]
+    words_per_insert = component["Number of words per insert"]  # Currently a placeholder
+    inserts_per_year = component["inserts per year"]
+    inserts_per_year = fit_FTE(inserts_per_year, country, year, division, conn)
+    cost, currency_information = calculate_mass_media_costs(label, country, year, conn)
+    cost *= inserts_per_year
+    log = "{}: {} inserts".format(label, inserts_per_year)
+    resource_information = (label, division, inserts_per_year)
+    record = (year, log, resource_information, (cost, *currency_information))
+    return [record]
+
+
+def get_airtime_records(component, country, year, conn):
+    """
+    Calculate the annual cost of providing airtime, either on radio or television.
+
+    The component should provide the following kwargs (e.g.):
+        "label": "Television time (minutes)",
+        "division": "national",
+        "campaigns per year": 2,
+        "days per campaign": 28,
+        "advertisements per day": 2,
+        "minutes per advertisement": 0.5
+
+    Note, these amounts are the amount assumed for a standardized population,
+    and may need to be adjusted for the country of interest.
+
+    Parameters
+    ----------
+    component : dict
+        The component of the intervention.
+    country : str
+        The ISO3 code of the country.
+    year : int
+        The year of interest.
+    conn : sqlite3.Connection
+        The connection to the database.
+
+    Returns
+    -------
+    list
+        a list of tuples of the form:
+        record = (year, log, resource_information, cost_information)
+    """
+    label = component["label"]
+    division = component["division"]
+    campaigns_per_year = component["campaigns per year"]
+    days_per_campaign = component["days per campaign"]
+    advertisements_per_day = component["advertisements per day"]
+    minutes_per_advertisement = component["minutes per advertisement"]
+    cost, currency_information = calculate_mass_media_costs(label, country, year, conn)
+    total_airtime = (
+        campaigns_per_year
+        * days_per_campaign
+        * advertisements_per_day
+        * minutes_per_advertisement
+    )
+    total_airtime = fit_FTE(total_airtime, country, year, division, conn)
+    cost *= total_airtime
+    log = "{}: {} campaigns per year, {} days per campaign, {} advertisements per day, {} minutes per advertisement".format(
+        label, campaigns_per_year, days_per_campaign, advertisements_per_day, minutes_per_advertisement
+    )
+    resource_information = (label, division, total_airtime)
+    record = (year, log, resource_information, (cost, *currency_information))
+    return [record]
+
+
+def get_wall_poster_records(component, country, year, conn):
+    """
+    Calculate the annual cost of providing wall posters.
+
+    Wall posters are provided at health facility level, and can be adjusted according to scale.
+    For example, if there is one national facility, but a scale of 2, then two posters would be
+    provided to that facility.
+    
+    Parameters
+    ----------
+    component : dict
+        The component of the intervention.
+    country : str
+        The ISO3 code of the country.
+    year : int
+        The year of interest.
+    conn : sqlite3.Connection
+        The connection to the database.
+
+    Returns
+    -------
+    list
+        a list of tuples of the form:
+        record = (year, log, resource_information, cost_information)
+    """
     HEALTH_FACILITY_MAPPING = {
         "national": ["regional_hospitals"],
         "provincial": ["provincial_hospitals"],
         "district": ["district_hospitals", "health_centres", "health_posts"]
     }
+    cost, currency_information = calculate_mass_media_costs("Wall posters (per poster)", country, year, conn)
+
     label = component["label"]
     division = component["division"]
+
     division_health_facilities = HEALTH_FACILITY_MAPPING[division]
 
-    cost, currency_information = calculate_mass_media_costs(label, country, year, conn)
-
+    records = []
     for health_facility_type in division_health_facilities:
         # get the number of health facilities
         number_of_health_facilities = serve_healthcare_facilities(country, health_facility_type, conn)
@@ -971,6 +1179,12 @@ def calculate_mass_media_costs(media_type, country, year, conn):
     """
     Calculate the costs of mass media entries.
 
+    FIXME #10 Media costs are a bit idiosyncratic at the moment, and should
+    be reviewed in the future.
+
+    Currently, some costs are a proportion of GDP per capita, and some are
+    arbitrary.
+
     Parameters
     ----------
     country : str
@@ -986,16 +1200,26 @@ def calculate_mass_media_costs(media_type, country, year, conn):
         (cost, currency, year)
     """
     # FIXME #9 Investigate the assumptions behind these costs
-    GDP_MAPPING = {
+    PROPORTION_OF_GDP_PER_CAPITA = {
         "Television time (minutes)": 0.68,
         "Radio time (minutes)": 0.12,
-        "Newspapers (100 word insert)": 0.58,
-        "Wall posters": 0.28,
-        "Flyers / leaflets": 0.06
+     }
+    ARBITRARY_COST = {
+        "Newspapers (100 word insert)": 100,
+        "Wall posters": 15,
+        "Flyers / leaflets": 0.15
     }
-    cost, _, _ = serve_gdp_per_capita(country, year, conn)
-    cost *= GDP_MAPPING[media_type]
-    return cost, (country, year)
+    if media_type in PROPORTION_OF_GDP_PER_CAPITA:
+        cost, _, _ = serve_gdp_per_capita(country, year, conn)
+        cost *= PROPORTION_OF_GDP_PER_CAPITA[media_type]
+    elif media_type in ARBITRARY_COST:
+        cost = ARBITRARY_COST[media_type]
+    else:
+        warnings.warn("Media type not recognised. Cost set to 0.")
+        cost = 0
+    ASSUMED_CURRENCY = "USD"
+    ASSUMED_CURRENCY_YEAR = 2019
+    return cost, (ASSUMED_CURRENCY, ASSUMED_CURRENCY_YEAR)
 
 
 def serve_gdp_per_capita(country, year, conn):
