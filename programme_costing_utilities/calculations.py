@@ -47,7 +47,7 @@ def get_personnel_records(component, conn, country, year, start_year):
         The ISO3 code of the country.
     year : int
         The year of interest.
-    _ : int
+    start_year: int
         The start year of the programme. (NOT USED)
 
     Component kwargs
@@ -113,7 +113,15 @@ def get_personnel_records(component, conn, country, year, start_year):
     salary = annual_salary * fte
 
     # Write a log for this record
-    log = f"Personnel: {role} ({cadre}) in {division} division, {fte} FTE, {activities} activities"
+    log = f"""
+    Year: {year}
+    Personnel to Support Programme Area: {programme_area}
+    Personnel: {role} (ISCO-08: {cadre})
+    In {division} division, at {fte:,.2f} FTE, performing {activities} activities
+    Annual Salary @ 1FTE: {currency_information[0]}{currency_information[1]}: {annual_salary:,.2f}
+    Total Salary: {currency_information[0]}{currency_information[1]}: {salary:,.2f}
+    Total Salary Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
+    """
     resource_information = (role, division, fte)
     cost_information = (salary, currency_information[0], currency_information[1])
 
@@ -125,9 +133,15 @@ def get_personnel_records(component, conn, country, year, start_year):
     if role not in DONT_NEED_OFFICE_SUPPLIES:
         for item in OFFICE_SUPPLIES:
             cost = fte * item["per person"] * item["annualised cost"]
-
             cost_information = (cost, item["currency"], item["currency year"])
-            log = f"Office supplies: {item['item']} for {role} ({cadre}) in {division} division, {fte} FTE, {activities} activities"
+
+            log = f"""
+            Year: {year}
+            Office Supplies for {role} in {division} supporting Programme {programme_area}
+            Item: {item["item"]}
+            Cost of Item: {item["currency"]}{item["currency year"]}: {cost:,.2f}
+            Cost of Item Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
+            """
             resource_information = (role, division, fte * item["per person"])
 
             record = (year, log, resource_information, cost_information)
@@ -139,17 +153,35 @@ def get_personnel_records(component, conn, country, year, start_year):
         km_per_car = calculate_km_travelled_per_year(division, CAR_PREFERENCE)
         kms_driven = cars_needed * km_per_car
         operational_cost, currency_information = serve_vehicle_operating_cost(CAR_PREFERENCE, conn)
-        fuel_cost, currency_information = serve_vehicle_fuel_consumption(CAR_PREFERENCE, conn)
+        total_operational_cost = operational_cost * kms_driven
 
-        log = f"Transport: {role} ({cadre}) in {division} division, {fte} FTE, {activities} activities"
+        log = f"""
+        Year: {year}
+        Transport to support {role} in {division} division, supporting Programme {programme_area}
+        Type of Car: {CAR_PREFERENCE}
+        Proportion of Car needed to support role: {cars_needed:,.2f}
+        Annual kms driven: {kms_driven:,.2f}
+        Operational cost per km: {currency_information[0]}{currency_information[1]}: {operational_cost:,.2f}
+        Therefore, total operational cost: {currency_information[0]}{currency_information[1]}: {total_operational_cost:,.2f}
+        Total operational cost Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
+        """
         resource_information = (role, division, fte)
         cost_information = (operational_cost, currency_information[0], currency_information[1])
         record = (year, log, resource_information, cost_information)
         records.append(record)
 
-        log = f"Fuel: {role} ({cadre}) in {division} division, {fte} FTE, {activities} activities"
+        fuel_cost, currency_information = serve_vehicle_fuel_consumption(CAR_PREFERENCE, conn)
+        total_fuel_cost = fuel_cost * kms_driven
+        log = f"""
+        Year: {year}
+        Fuel for {cars_needed:,.2f} x {CAR_PREFERENCE} to support {role} in {division} division, supporting Programme {programme_area}
+        Annual kms driven: {kms_driven:,.2f}
+        Fuel cost per km: {currency_information[0]}{currency_information[1]}: {fuel_cost:,.2f}
+        Therefore, total fuel cost: {currency_information[0]}{currency_information[1]}: {total_fuel_cost:,.2f}
+        Total fuel cost Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
+        """
         resource_information = (role, division, kms_driven)
-        cost_information = (fuel_cost, currency_information[0], currency_information[1])
+        cost_information = (total_fuel_cost, currency_information[0], currency_information[1])
         record = (year, log, resource_information, cost_information)
         records.append(record)
 
@@ -240,7 +272,15 @@ def get_meeting_records(component, conn, country, year, start_year):
     room_hire_cost_per_day, currency_information = calculate_room_hire(country, division, year, room_size, conn)
     room_hire_cost_total = room_hire_cost_per_day * days * number_of_meetings
 
-    log = "Room hire for {} Room, {}m2 for {} days for {} meetings".format(division, room_size, days, number_of_meetings)
+    log = f"""
+    Year: {year}
+    Room hire for {division} Room
+    Room Size: {room_size}m2
+    For {days} days per meeting.
+    For {number_of_meetings:,.2f} meetings.
+    Total Cost: {currency_information[0]}{currency_information[1]}: {room_hire_cost_total:,.2f}
+    Total Cost Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
+    """
     resource_information = ("Room Size", division, room_size)
     cost_information = (room_hire_cost_total, currency_information[0], currency_information[1])
     record = (year, log, resource_information, cost_information)
@@ -254,7 +294,14 @@ def get_meeting_records(component, conn, country, year, start_year):
         attendee_label, _, quantity, _ = visiting_attendee
         cost = days * quantity * per_diems * number_of_meetings
 
-        log = "{}: Per diems for {} visiting attendees for {} days for {} meetings".format(attendee_label, quantity, days, number_of_meetings)
+        log = f"""
+        Year: {year}
+        Per diems for visiting attendees for {days} days for {number_of_meetings:,.2f} meetings.
+        Per diems: {currency_information[0]}{currency_information[1]}: {per_diems:,.2f}
+        Total Cost: {currency_information[0]}{currency_information[1]}: {cost:,.2f}
+        Total Cost Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
+        """
+
         resource_information = (attendee_label, division, quantity)
         cost_information = (cost, currency_information[0], currency_information[1])
         record = (year, log, resource_information, cost_information)
@@ -268,7 +315,14 @@ def get_meeting_records(component, conn, country, year, start_year):
         attendee_label, _, quantity, _ = local_attendee
         cost = days * quantity * daily_salary * number_of_meetings
 
-        log = "{}: Opportunity cost for {} local attendees for {} days for {} meetings".format(attendee_label, quantity, days, number_of_meetings)
+        log = f"""
+        Year: {year}
+        {attendee_label}: Salary for {quantity} local attendees for {days} days for {number_of_meetings:,.2f} meetings.
+        Daily Salary: {currency_information[0]}{currency_information[1]}: {daily_salary:,.2f}
+        Total Cost: {currency_information[0]}{currency_information[1]}: {cost:,.2f}
+        Total Cost Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
+        """
+
         resource_information = (attendee_label, division, quantity)
         cost_information = (cost, currency_information[0], currency_information[1])
         record = (year, log, resource_information, cost_information)
@@ -276,13 +330,22 @@ def get_meeting_records(component, conn, country, year, start_year):
 
     # travel = attendees * ddist * operational cost of car
     vehicle_operating_cost_per_km, currency_information = serve_vehicle_operating_cost(preferred_vehicle, conn)
+    vehicle_fuel_consumption_per_km, currency_information = serve_vehicle_fuel_consumption(preferred_vehicle, conn)
     distance_travelled_in_km = serve_distance_between_regions(country, "DDist95", conn)  # FIXME #3 - Interrogate this assumption
-    cost_of_travel_per_attendee = distance_travelled_in_km * vehicle_operating_cost_per_km
+    cost_of_travel_per_attendee = distance_travelled_in_km * vehicle_operating_cost_per_km * vehicle_fuel_consumption_per_km
     for attendee in attendees:
         attendee_label, _, _, quantity = attendee
         cost = quantity * cost_of_travel_per_attendee * number_of_meetings
 
-        log = "{}: Travel for {} attendees for {} meetings".format(attendee_label, quantity, number_of_meetings)
+        log = f"""
+        Year: {year}
+        {attendee_label}: Travel for {quantity} attendees for {number_of_meetings:,.2f} meetings
+        Distance Travelled: {distance_travelled_in_km:,.2f}km
+        Vehicle Operating Cost: {currency_information[0]}{currency_information[1]}: {vehicle_operating_cost_per_km:,.2f} 
+        Vehicle Fuel Consumption: {vehicle_fuel_consumption_per_km:,.2f}L/km
+        Total Cost: {currency_information[0]}{currency_information[1]}: {cost:,.2f}
+        Total Cost Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
+        """
         resource_information = (attendee_label, division, quantity)
         cost_information = (cost, currency_information[0], currency_information[1])
         record = (year, log, resource_information, cost_information)
@@ -323,7 +386,7 @@ def get_media_records(component, conn, country, year, start_year):
         "Radio time (minutes)": get_airtime_records,
         "Television time (minutes)": get_airtime_records,
         "Newspapers (100 word insert)": get_newspaper_records,
-        "Wall posters (per poster)": get_wall_poster_records,
+        "Wall posters": get_wall_poster_records,
         "Flyers / leaflets (per leaflet)": get_flyers_leaflet_records,
         "Social media": get_social_media_records,
         "Text messaging": get_text_messaging_records
@@ -404,6 +467,7 @@ def get_flyers_leaflet_records(component, country, year, conn):
         a list of tuples of the form:
         record = (year, log, resource_information, cost_information)
     """
+    ...
 
 
 def get_newspaper_records(component, country, year, conn):
@@ -443,8 +507,16 @@ def get_newspaper_records(component, country, year, conn):
     inserts_per_year = component["inserts per year"]
     inserts_per_year = fit_FTE(inserts_per_year, country, year, division, conn)
     cost, currency_information = calculate_mass_media_costs(label, country, year, conn)
-    cost *= inserts_per_year
-    log = "{}: {} inserts".format(label, inserts_per_year)
+    total_cost = cost * inserts_per_year
+    log = f"""
+    Year: {year}
+    Mass Media Campaign Using Newspaper
+    Words per insert: {words_per_insert}
+    Inserts per year: {inserts_per_year:,.2f}
+    Cost per insert: {currency_information[0]}{currency_information[1]}: {cost:,.2f}
+    Total Cost: {currency_information[0]}{currency_information[1]}: {total_cost:,.2f}
+    Total Cost Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
+    """
     resource_information = (label, division, inserts_per_year)
     record = (year, log, resource_information, (cost, *currency_information))
     return [record]
@@ -488,7 +560,7 @@ def get_airtime_records(component, country, year, conn):
     days_per_campaign = component["days per campaign"]
     advertisements_per_day = component["advertisements per day"]
     minutes_per_advertisement = component["minutes per advertisement"]
-    cost, currency_information = calculate_mass_media_costs(label, country, year, conn)
+    mass_media_cost, currency_information = calculate_mass_media_costs(label, country, year, conn)
     total_airtime = (
         campaigns_per_year
         * days_per_campaign
@@ -496,10 +568,19 @@ def get_airtime_records(component, country, year, conn):
         * minutes_per_advertisement
     )
     total_airtime = fit_FTE(total_airtime, country, year, division, conn)
-    cost *= total_airtime
-    log = "{}: {} campaigns per year, {} days per campaign, {} advertisements per day, {} minutes per advertisement".format(
-        label, campaigns_per_year, days_per_campaign, advertisements_per_day, minutes_per_advertisement
-    )
+    cost = mass_media_cost * total_airtime
+    log = f"""
+    Year: {year}
+    Airtime for {label}
+    Campaigns per year: {campaigns_per_year} 
+    Days per campaign: {days_per_campaign}
+    Advertisements per day: {advertisements_per_day}
+    Minutes per advertisement: {minutes_per_advertisement}
+    Total Airtime: {total_airtime:,.2f}
+    Cost per minute: {currency_information[0]}{currency_information[1]}: {mass_media_cost:,.2f}
+    Total Cost: {currency_information[0]}{currency_information[1]}: {cost:,.2f}
+    Total Cost Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
+    """
     resource_information = (label, division, total_airtime)
     record = (year, log, resource_information, (cost, *currency_information))
     return [record]
@@ -547,11 +628,17 @@ def get_wall_poster_records(component, country, year, conn):
         # get the number of health facilities
         number_of_health_facilities = serve_healthcare_facilities(country, health_facility_type, conn)
         # multiply by the cost
-        cost_per_health_facility = number_of_health_facilities * cost
+        total_cost = number_of_health_facilities * cost
         # create the record
-        log = "{}: {}".format(label, health_facility_type)
+        log = f"""
+        Year: {year}
+        Wall posters for {health_facility_type} (A {division} facility)
+        Cost per health facility: {currency_information[0]}{currency_information[1]}: {cost:,.2f}
+        Total Cost: {currency_information[0]}{currency_information[1]}: {total_cost:,.2f}
+        Total Cost Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
+        """
         resource_information = (label, health_facility_type, number_of_health_facilities)
-        cost_information = (cost_per_health_facility, currency_information[0], currency_information[1])
+        cost_information = (total_cost, currency_information[0], currency_information[1])
         record = (year, log, resource_information, cost_information)
         records.append(record)
     return records
@@ -709,7 +796,7 @@ def serve_personnel_annual_salary(country, cadre, conn):
 
     result = cursor.fetchone()
     if result is None:
-        return None, None
+        return 0, (None, None)
 
     annual_salary, currency, year = result
     cost_tuple = (currency, year)
@@ -847,9 +934,9 @@ def serve_vehicle_fuel_consumption(vehicle, conn):
     cursor.execute(query, (vehicle, ))
 
     result = cursor.fetchone()
-    vehicle_operating_cost, currency, year = result
+    vehicle_fuel_consumption, currency, year = result
 
-    return vehicle_operating_cost, (currency, year)
+    return vehicle_fuel_consumption, (currency, year)
 
 
 def serve_distance_between_regions(country, ddist, conn):

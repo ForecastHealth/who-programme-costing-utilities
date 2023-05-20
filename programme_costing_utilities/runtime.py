@@ -60,6 +60,12 @@ def run(data, conn):
                         discount=discount,
                         conn=conn)
 
+                    # Update log
+                    log = log.format(
+                        awaiting_cost=f"{updated_cost_information[0]:,.2f}",
+                        awaiting_currency=updated_cost_information[1], 
+                        awaiting_currency_year=updated_cost_information[2]
+                    )
                     logs.append(log)
                     row = {
                         "year": year,
