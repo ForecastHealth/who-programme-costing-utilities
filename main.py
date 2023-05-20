@@ -42,6 +42,8 @@ def load_database():
 def main():
     args = get_args()
     data = load_input_file(args.input)
+    print("--------------------")
+    print(f"Working on Programme Costs for {data['country']}")
     conn = load_database()
     logs, table = runtime.run(data, conn)
     if args.output:
