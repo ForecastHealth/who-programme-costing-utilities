@@ -72,7 +72,9 @@ def run(data, conn):
                         "component": component_type,
                         "heading_1": resource_information[0],
                         "heading_2": resource_information[1],
-                        "quantity": round(resource_information[2], 2),
+                        "heading_3": resource_information[2],
+                        "heading_4": resource_information[3],
+                        "quantity": round(resource_information[4], 2),
                         "cost": round(updated_cost_information[0], 2)
                     }
                     table.append(row)

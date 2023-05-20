@@ -122,7 +122,13 @@ def get_personnel_records(component, conn, country, year, start_year):
     Total Salary: {currency_information[0]}{currency_information[1]}: {salary:,.2f}
     Total Salary Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
     """
-    resource_information = (role, division, fte)
+    resource_information = (
+        "Personnel", 
+        role, 
+        cadre, 
+        division, 
+        fte
+        )
     cost_information = (salary, currency_information[0], currency_information[1])
 
     # add to records
@@ -142,7 +148,14 @@ def get_personnel_records(component, conn, country, year, start_year):
             Cost of Item: {item["currency"]}{item["currency year"]}: {cost:,.2f}
             Cost of Item Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
             """
-            resource_information = (role, division, fte * item["per person"])
+            quantity = fte * item["per person"]
+            resource_information = (
+                "Office Supplies", 
+                item["item"], 
+                role, 
+                division, 
+                quantity
+                )
 
             record = (year, log, resource_information, cost_information)
             records.append(record)
@@ -165,8 +178,14 @@ def get_personnel_records(component, conn, country, year, start_year):
         Therefore, total operational cost: {currency_information[0]}{currency_information[1]}: {total_operational_cost:,.2f}
         Total operational cost Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
         """
-        resource_information = (role, division, fte)
-        cost_information = (operational_cost, currency_information[0], currency_information[1])
+        resource_information = (
+            "Transport - Operational Costs", 
+            "KMs Driven * OpEx", 
+            CAR_PREFERENCE, 
+            division, 
+            kms_driven
+            )
+        cost_information = (total_operational_cost, currency_information[0], currency_information[1])
         record = (year, log, resource_information, cost_information)
         records.append(record)
 
@@ -180,7 +199,13 @@ def get_personnel_records(component, conn, country, year, start_year):
         Therefore, total fuel cost: {currency_information[0]}{currency_information[1]}: {total_fuel_cost:,.2f}
         Total fuel cost Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
         """
-        resource_information = (role, division, kms_driven)
+        resource_information = (
+            "Transport - Fuel Costs", 
+            "KMs Driven * Fuel", 
+            CAR_PREFERENCE, 
+            division, 
+            kms_driven
+            )
         cost_information = (total_fuel_cost, currency_information[0], currency_information[1])
         record = (year, log, resource_information, cost_information)
         records.append(record)
@@ -281,7 +306,12 @@ def get_meeting_records(component, conn, country, year, start_year):
     Total Cost: {currency_information[0]}{currency_information[1]}: {room_hire_cost_total:,.2f}
     Total Cost Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
     """
-    resource_information = ("Room Size", division, room_size)
+    resource_information = (
+        "Meeting", 
+        "Room Hire Costs",
+        division, 
+        f"{room_size}m2", 
+        number_of_meetings)
     cost_information = (room_hire_cost_total, currency_information[0], currency_information[1])
     record = (year, log, resource_information, cost_information)
     records.append(record)
@@ -291,8 +321,8 @@ def get_meeting_records(component, conn, country, year, start_year):
     visiting_attendees = [a for a in attendees if a[1] == "visiting"]
     per_diems, currency_information = serve_per_diem(country, division, conn, True)
     for visiting_attendee in visiting_attendees:
-        attendee_label, _, quantity, _ = visiting_attendee
-        cost = days * quantity * per_diems * number_of_meetings
+        attendee_label, _, attendees_requiring_per_diems, _ = visiting_attendee
+        cost = days * attendees_requiring_per_diems * per_diems * number_of_meetings
 
         log = f"""
         Year: {year}
@@ -302,7 +332,13 @@ def get_meeting_records(component, conn, country, year, start_year):
         Total Cost Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
         """
 
-        resource_information = (attendee_label, division, quantity)
+        resource_information = (
+            "Meeting", 
+            "Per Diem Costs",
+            attendee_label, 
+            division, 
+            attendees_requiring_per_diems
+            )
         cost_information = (cost, currency_information[0], currency_information[1])
         record = (year, log, resource_information, cost_information)
         records.append(record)
@@ -323,7 +359,13 @@ def get_meeting_records(component, conn, country, year, start_year):
         Total Cost Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
         """
 
-        resource_information = (attendee_label, division, quantity)
+        resource_information = (
+            "Meeting",
+            "Local attendance costs",
+            attendee_label, 
+            division, 
+            quantity
+            )
         cost_information = (cost, currency_information[0], currency_information[1])
         record = (year, log, resource_information, cost_information)
         records.append(record)
@@ -346,7 +388,13 @@ def get_meeting_records(component, conn, country, year, start_year):
         Total Cost: {currency_information[0]}{currency_information[1]}: {cost:,.2f}
         Total Cost Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
         """
-        resource_information = (attendee_label, division, quantity)
+        resource_information = (
+            "Meeting",
+            "Travel Costs for Attendees",
+            attendee_label, 
+            division, 
+            quantity
+            )
         cost_information = (cost, currency_information[0], currency_information[1])
         record = (year, log, resource_information, cost_information)
         records.append(record)
@@ -517,7 +565,13 @@ def get_newspaper_records(component, country, year, conn):
     Total Cost: {currency_information[0]}{currency_information[1]}: {total_cost:,.2f}
     Total Cost Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
     """
-    resource_information = (label, division, inserts_per_year)
+    resource_information = (
+        "Mass Media",
+        "Newspaper",
+        division, 
+        None,
+        inserts_per_year
+        )
     record = (year, log, resource_information, (cost, *currency_information))
     return [record]
 
@@ -581,7 +635,13 @@ def get_airtime_records(component, country, year, conn):
     Total Cost: {currency_information[0]}{currency_information[1]}: {cost:,.2f}
     Total Cost Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
     """
-    resource_information = (label, division, total_airtime)
+    resource_information = (
+        "Airtime",
+        label, 
+        division, 
+        None,
+        total_airtime
+        )
     record = (year, log, resource_information, (cost, *currency_information))
     return [record]
 
@@ -611,14 +671,14 @@ def get_wall_poster_records(component, country, year, conn):
         a list of tuples of the form:
         record = (year, log, resource_information, cost_information)
     """
+    label = component["label"]
     HEALTH_FACILITY_MAPPING = {
         "national": ["regional_hospitals"],
         "provincial": ["provincial_hospitals"],
         "district": ["district_hospitals", "health_centres", "health_posts"]
     }
-    cost, currency_information = calculate_mass_media_costs("Wall posters (per poster)", country, year, conn)
+    cost, currency_information = calculate_mass_media_costs(label, country, year, conn)
 
-    label = component["label"]
     division = component["division"]
 
     division_health_facilities = HEALTH_FACILITY_MAPPING[division]
@@ -637,7 +697,13 @@ def get_wall_poster_records(component, country, year, conn):
         Total Cost: {currency_information[0]}{currency_information[1]}: {total_cost:,.2f}
         Total Cost Rebased: {{awaiting_currency}}{{awaiting_currency_year}}: {{awaiting_cost}}
         """
-        resource_information = (label, health_facility_type, number_of_health_facilities)
+        resource_information = (
+            "Wall Posters",
+            health_facility_type, 
+            division,
+            None,
+            number_of_health_facilities
+            )
         cost_information = (total_cost, currency_information[0], currency_information[1])
         record = (year, log, resource_information, cost_information)
         records.append(record)
