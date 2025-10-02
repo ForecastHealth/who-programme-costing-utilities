@@ -10,7 +10,7 @@ import pandas as pd
 import os
 from pathlib import Path
 
-EXCEL_FILE = './5 WHO_CHOICE_Price_Database_2019_A3.xlsx'
+EXCEL_FILE = './data/raw.xlsx'
 DB_PATH = './data/who_choice_price_database.db'
 
 
