@@ -1,7 +1,4 @@
 # Additional for this repository
-*.xls*
-*.db
-/data/
 /tmp/
 /input/
 
