@@ -1,9 +1,11 @@
 """
 Provides the methods to calculate the personnel quantity and cost.
 """
-import numpy as np
 import json
+import sqlite3
 import warnings
+
+import numpy as np
 
 def calculate_discount(discount_rate, year, start):
     """
@@ -213,7 +215,7 @@ def get_personnel_records(component, conn, country, year, start_year):
     return records
 
 
-def get_meeting_records(component, conn, country, year, start_year):
+def get_meeting_records(component=None, conn=None, country=None, year=None, start_year=None, **component_overrides):
     """
     Return a list of who attended a meeting, and the cost of attending.
 
@@ -273,14 +275,39 @@ def get_meeting_records(component, conn, country, year, start_year):
         each entry is a tuple of the form:
         item, cost, (currency, currency_year)
     """
+    if component is not None and not isinstance(component, dict):
+        raise TypeError("component must be a mapping if provided")
+
+    component_data = dict(component or {})
+    if component_overrides:
+        component_data.update(component_overrides)
+
+    if conn is None:
+        raise ValueError("A database connection must be provided")
+    if country is None:
+        raise ValueError("A country ISO3 code must be provided")
+    if year is None:
+        raise ValueError("A target year must be provided")
+    if start_year is None:
+        start_year = year
+
     # unpack kwargs, or defaults
-    frequency = component.get("frequency", 1)
-    scale = component.get("scale", 1)
-    division = component["division"]
-    days = component["days"]
-    attendees = component["attendees"]
-    room_size = component["room_size"]
-    preferred_vehicle = component.get("preferred_vehicle", "Corolla sedan 2014 model")
+    frequency = component_data.get("frequency", 1)
+    scale = component_data.get("scale", 1)
+    division = component_data.get("division")
+    days = component_data.get("days")
+    attendees = component_data.get("attendees")
+    room_size = component_data.get("room_size")
+    preferred_vehicle = component_data.get("preferred_vehicle", "Corolla sedan 2014 model")
+
+    if division is None:
+        raise ValueError("division must be provided for meeting calculations")
+    if days is None:
+        raise ValueError("days must be provided for meeting calculations")
+    if attendees is None:
+        raise ValueError("attendees must be provided for meeting calculations")
+    if room_size is None:
+        raise ValueError("room_size must be provided for meeting calculations")
 
     # determine if function needs to run this year
     records = []
@@ -291,7 +318,11 @@ def get_meeting_records(component, conn, country, year, start_year):
     elif frequency != 0 and idx % frequency != 0:  # only run if scale is not 0 and idx is not a multiple of scale
         return records
 
-    number_of_meetings = serve_number_of_divisions(country, division, conn) * scale
+    annual_meetings = component_data.get("annual_meetings")
+    if annual_meetings is not None:
+        number_of_meetings = annual_meetings
+    else:
+        number_of_meetings = serve_number_of_divisions(country, division, conn) * scale
 
     # room hire
     room_hire_cost_per_day, currency_information = calculate_room_hire(country, division, year, room_size, conn)
@@ -743,11 +774,15 @@ def serve_population(country, year, conn) :
     cursor = conn.cursor()
     cursor.execute(query, (country, year, "Median"))
 
-    result = cursor.fetchone()[0]
+    row = cursor.fetchone()
+    if not row:
+        return 0
+
+    result = row[0]
     if result is None:
         return 0
 
-    return result
+    return int(round(float(result) * 1_000))
 
 
 def serve_number_of_divisions(country, division, conn):
@@ -1029,12 +1064,16 @@ def serve_distance_between_regions(country, ddist, conn):
         WHERE ISO3 = ?
         """
     cursor = conn.cursor()
-    cursor.execute(query, (country, ))
+    try:
+        cursor.execute(query, (country, ))
+    except sqlite3.OperationalError as exc:
+        raise ValueError(f"Unsupported distance metric '{ddist}'") from exc
 
     result = cursor.fetchone()
-    distance_km = result[0]
+    if not result or result[0] is None:
+        raise ValueError(f"No distance data for country {country} and metric {ddist}")
 
-    return distance_km
+    return float(result[0])
 
 
 def calculate_room_hire(country, division, year, room_size, conn):
@@ -1143,13 +1182,13 @@ def serve_per_diem(country, division, conn, local=False):
 
 
 def rebase_currency(
-        cost,
-        current_country,
-        current_year,
-        desired_country,
-        desired_year,
-        discount,
-        conn
+    cost,
+    current_country,
+    current_year,
+    desired_country,
+    desired_year,
+    discount,
+    conn
     ):
     """
     Rebase a currency to a different currency and year (potentially).
@@ -1186,11 +1225,17 @@ def rebase_currency(
     - Change to different currency via WB-PPP rates
     - Rebase to desired year using WB-GDP deflators
     """
+    current_country = current_country.upper()
+    desired_country = desired_country.upper()
+
     # if either currency is called USD, change this to USA
     if current_country == "USD":
         current_country = "USA"
     if desired_country == "USD":
         desired_country = "USA"
+
+    def is_ppp_currency(code):
+        return code in {"I$", "IUSD", "PPP"}
 
     if current_year < 1960:
         warnings.warn(
@@ -1201,7 +1246,7 @@ def rebase_currency(
         current_year = 1960
     if desired_year < 1960:
         warnings.warn(
-            f"Desired year is {current_year}. "
+            f"Desired year is {desired_year}. "
             "This is before the earliest year of the WB-GDP deflators. "
             "Rebasing will not be accurate."
             )
@@ -1215,7 +1260,7 @@ def rebase_currency(
         current_year = 2021
     if desired_year > 2021:
         warnings.warn(
-            f"Desired year is {current_year}. "
+            f"Desired year is {desired_year}. "
             "This is after the latest year of the WB-GDP deflators. "
             "Rebasing will not be accurate."
             )
@@ -1225,23 +1270,35 @@ def rebase_currency(
 
     # convert to PPP, then convert from PPP to the desired country currency
     if desired_country != current_country:
-        query = f"""
-            SELECT "{current_year} [YR{current_year}]" FROM "economic_statistics"
-            WHERE "Country Code" = ?
-            AND "Series Name" = "PPP conversion factor, GDP (LCU per international $)"
-            """
-        cursor.execute(query, (current_country, ))
-        to_PPP = float(cursor.fetchone()[0])
-        ppp = cost / to_PPP
+        if is_ppp_currency(current_country):
+            ppp = cost
+        else:
+            query = f"""
+                SELECT "{current_year} [YR{current_year}]" FROM "economic_statistics"
+                WHERE "Country Code" = ?
+                AND "Series Name" = "PPP conversion factor, GDP (LCU per international $)"
+                """
+            cursor.execute(query, (current_country, ))
+            result = cursor.fetchone()
+            if result is None or result[0] is None:
+                raise ValueError(f"PPP conversion data missing for {current_country} in {current_year}")
+            to_ppp = float(result[0])
+            ppp = cost / to_ppp
 
-        query = f"""
-            SELECT "{current_year} [YR{current_year}]" FROM "economic_statistics"
-            WHERE "Country Code" = ?
-            AND "Series Name" = "PPP conversion factor, GDP (LCU per international $)"
-            """
-        cursor.execute(query, (desired_country, ))
-        to_PPP = float(cursor.fetchone()[0])
-        cost = ppp * to_PPP
+        if is_ppp_currency(desired_country):
+            cost = ppp
+        else:
+            query = f"""
+                SELECT "{current_year} [YR{current_year}]" FROM "economic_statistics"
+                WHERE "Country Code" = ?
+                AND "Series Name" = "PPP conversion factor, GDP (LCU per international $)"
+                """
+            cursor.execute(query, (desired_country, ))
+            result = cursor.fetchone()
+            if result is None or result[0] is None:
+                raise ValueError(f"PPP conversion data missing for {desired_country} in {current_year}")
+            to_ppp = float(result[0])
+            cost = ppp * to_ppp
 
     # convert the current year to the desired year, using deflators
     if current_year != desired_year:
@@ -1250,12 +1307,25 @@ def rebase_currency(
             WHERE "Country Code" = ?
             AND "Series Name" = "GDP deflator (base year varies by country)"
             """
-        cursor.execute(query, (current_country, ))
-        gdp_deflators = cursor.fetchall()[0][4:]  # Before this is text
+        deflator_country = current_country
+        if is_ppp_currency(deflator_country):
+            deflator_country = desired_country
+        if is_ppp_currency(deflator_country):
+            deflator_country = "USA"
+
+        cursor.execute(query, (deflator_country, ))
+        row = cursor.fetchone()
+        if row is None:
+            raise ValueError(f"No GDP deflator data for country {deflator_country}")
+
+        gdp_deflators = row[2:]  # skip the identifier columns
 
         first_year = 1960
         requested_index = desired_year - first_year
         current_index = current_year - first_year
+        if requested_index >= len(gdp_deflators) or current_index >= len(gdp_deflators):
+            raise IndexError("Requested year is outside the available GDP deflator range")
+
         gdp_deflator_requested = float(gdp_deflators[requested_index])
         gdp_deflator_current = float(gdp_deflators[current_index])
 

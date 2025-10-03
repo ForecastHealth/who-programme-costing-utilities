@@ -88,7 +88,8 @@ def create_tables(conn):
             DDist80 NUMERIC,
             DDist90 NUMERIC,
             DDist95 NUMERIC,
-            DDist100 NUMERIC
+            DDist100 NUMERIC,
+            size_km_sq NUMERIC
         )
     """)
 
@@ -311,13 +312,14 @@ def populate_distance_between_regions(conn):
             cursor.execute("""
                 INSERT OR REPLACE INTO distance_between_regions
                 (ISO3, DDist10, DDist20, DDist30, DDist40, DDist50,
-                 DDist60, DDist70, DDist80, DDist90, DDist95, DDist100)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                 DDist60, DDist70, DDist80, DDist90, DDist95, DDist100, size_km_sq)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 row['Unnamed: 1'],
                 row['DDist10'], row['DDist20'], row['DDist30'], row['DDist40'],
                 row['DDist50'], row['DDist60'], row['DDist70'], row['DDist80'],
-                row['DDist90'], row['DDist95'], row['DDist100']
+                row['DDist90'], row['DDist95'], row['DDist100'],
+                row.get('Size') if pd.notna(row.get('Size')) else None
             ))
 
     conn.commit()
