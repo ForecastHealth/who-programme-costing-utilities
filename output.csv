@@ -1,0 +1,495 @@
+year,component,heading_1,heading_2,heading_3,heading_4,quantity,cost
+2020,personnel,Personnel,Programme Director,5,National,0.23,2388.76
+2020,personnel,Office Supplies,Computer   ,Programme Director,National,0.11,10.66
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Programme Director,National,0.03,11.72
+2020,personnel,Personnel,Programme Manager,4,National,0.46,3790.95
+2020,personnel,Office Supplies,Computer   ,Programme Manager,National,0.23,21.32
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Programme Manager,National,0.06,23.44
+2020,personnel,Personnel,Administration Officer,3,National,0.91,5746.67
+2020,personnel,Office Supplies,Computer   ,Administration Officer,National,0.46,42.63
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Administration Officer,National,0.11,46.87
+2020,personnel,Personnel,Clerical Officer/Administrative Asst.,2,National,1.83,9471.99
+2020,personnel,Office Supplies,Computer   ,Clerical Officer/Administrative Asst.,National,0.91,85.26
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Clerical Officer/Administrative Asst.,National,0.23,93.74
+2020,personnel,Personnel,Personnel Secretary/Asst./Receptionist,2,National,1.6,8287.99
+2020,personnel,Office Supplies,Computer   ,Personnel Secretary/Asst./Receptionist,National,0.8,74.6
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Personnel Secretary/Asst./Receptionist,National,0.2,82.03
+2020,personnel,Personnel,Accountant,4,National,0.46,3790.95
+2020,personnel,Office Supplies,Computer   ,Accountant,National,0.23,21.32
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Accountant,National,0.06,23.44
+2020,personnel,Personnel,I.S./I.T./Computing Manager,4,National,0.23,1895.48
+2020,personnel,Office Supplies,Computer   ,I.S./I.T./Computing Manager,National,0.11,10.66
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",I.S./I.T./Computing Manager,National,0.03,11.72
+2020,personnel,Personnel,I.T./Computing Officer,3,National,0.46,2873.33
+2020,personnel,Office Supplies,Computer   ,I.T./Computing Officer,National,0.23,21.32
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",I.T./Computing Officer,National,0.06,23.44
+2020,personnel,Personnel,Cleaner,1,National,0.23,784.4
+2020,personnel,Personnel,Public Health Specialist,4,National,0.91,7581.91
+2020,personnel,Office Supplies,Computer   ,Public Health Specialist,National,0.46,42.63
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Health Specialist,National,0.11,46.87
+2020,personnel,Personnel,Public Health Officer/Assistant,3,National,1.83,11493.34
+2020,personnel,Office Supplies,Computer   ,Public Health Officer/Assistant,National,0.91,85.26
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Health Officer/Assistant,National,0.23,93.74
+2020,personnel,Personnel,Health Educator/Trainer,3,National,1.83,11493.34
+2020,personnel,Office Supplies,Computer   ,Health Educator/Trainer,National,0.91,85.26
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Health Educator/Trainer,National,0.23,93.74
+2020,personnel,Personnel,Public Relations Manager,4,National,0.46,3790.95
+2020,personnel,Office Supplies,Computer   ,Public Relations Manager,National,0.23,21.32
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Relations Manager,National,0.06,23.44
+2020,personnel,Personnel,Public Relations Officer,3,National,0.91,5746.67
+2020,personnel,Office Supplies,Computer   ,Public Relations Officer,National,0.46,42.63
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Relations Officer,National,0.11,46.87
+2020,personnel,Personnel,Lawyer,4,National,0.23,1895.48
+2020,personnel,Office Supplies,Computer   ,Lawyer,National,0.11,10.66
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Lawyer,National,0.03,11.72
+2020,personnel,Personnel,Legal Officer,3,National,0.46,2873.33
+2020,personnel,Office Supplies,Computer   ,Legal Officer,National,0.23,21.32
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Legal Officer,National,0.06,23.44
+2020,personnel,Personnel,Transport Manager,4,National,0.29,2373.14
+2020,personnel,Office Supplies,Computer   ,Transport Manager,National,0.14,13.34
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Transport Manager,National,0.04,14.67
+2020,personnel,Personnel,Transport Driver,1,National,1.14,3921.98
+2020,personnel,Transport - Operational Costs,KMs Driven * OpEx,Toyota Hiace passenger van,National,13722.3,2635.91
+2020,personnel,Transport - Fuel Costs,KMs Driven * Fuel,Toyota Hiace passenger van,National,13722.3,1402.04
+2020,personnel,Personnel,Programme Director,5,Provincial,0.14,1492.98
+2020,personnel,Office Supplies,Computer   ,Programme Director,Provincial,0.07,6.66
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Programme Director,Provincial,0.02,7.32
+2020,personnel,Personnel,Programme Manager,4,Provincial,0.29,2369.35
+2020,personnel,Office Supplies,Computer   ,Programme Manager,Provincial,0.14,13.32
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Programme Manager,Provincial,0.04,14.65
+2020,personnel,Personnel,Administration Officer,3,Provincial,0.57,3591.67
+2020,personnel,Office Supplies,Computer   ,Administration Officer,Provincial,0.29,26.64
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Administration Officer,Provincial,0.07,29.3
+2020,personnel,Personnel,Clerical Officer/Administrative Asst.,2,Provincial,1.14,5919.99
+2020,personnel,Office Supplies,Computer   ,Clerical Officer/Administrative Asst.,Provincial,0.57,53.29
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Clerical Officer/Administrative Asst.,Provincial,0.14,58.59
+2020,personnel,Personnel,Personnel Secretary/Asst./Receptionist,2,Provincial,1.0,5179.99
+2020,personnel,Office Supplies,Computer   ,Personnel Secretary/Asst./Receptionist,Provincial,0.5,46.63
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Personnel Secretary/Asst./Receptionist,Provincial,0.13,51.27
+2020,personnel,Personnel,Accountant,4,Provincial,0.29,2369.35
+2020,personnel,Office Supplies,Computer   ,Accountant,Provincial,0.14,13.32
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Accountant,Provincial,0.04,14.65
+2020,personnel,Personnel,I.S./I.T./Computing Manager,4,Provincial,0.14,1184.67
+2020,personnel,Office Supplies,Computer   ,I.S./I.T./Computing Manager,Provincial,0.07,6.66
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",I.S./I.T./Computing Manager,Provincial,0.02,7.32
+2020,personnel,Personnel,I.T./Computing Officer,3,Provincial,0.29,1795.83
+2020,personnel,Office Supplies,Computer   ,I.T./Computing Officer,Provincial,0.14,13.32
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",I.T./Computing Officer,Provincial,0.04,14.65
+2020,personnel,Personnel,Cleaner,1,Provincial,0.29,980.5
+2020,personnel,Personnel,Public Health Specialist,4,Provincial,0.57,4738.69
+2020,personnel,Office Supplies,Computer   ,Public Health Specialist,Provincial,0.29,26.64
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Health Specialist,Provincial,0.07,29.3
+2020,personnel,Personnel,Public Health Officer/Assistant,3,Provincial,1.14,7183.34
+2020,personnel,Office Supplies,Computer   ,Public Health Officer/Assistant,Provincial,0.57,53.29
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Health Officer/Assistant,Provincial,0.14,58.59
+2020,personnel,Personnel,Health Educator/Trainer,3,Provincial,1.14,7183.34
+2020,personnel,Office Supplies,Computer   ,Health Educator/Trainer,Provincial,0.57,53.29
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Health Educator/Trainer,Provincial,0.14,58.59
+2020,personnel,Personnel,Public Relations Manager,4,Provincial,0.29,2369.35
+2020,personnel,Office Supplies,Computer   ,Public Relations Manager,Provincial,0.14,13.32
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Relations Manager,Provincial,0.04,14.65
+2020,personnel,Personnel,Public Relations Officer,3,Provincial,0.57,3591.67
+2020,personnel,Office Supplies,Computer   ,Public Relations Officer,Provincial,0.29,26.64
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Relations Officer,Provincial,0.07,29.3
+2020,personnel,Personnel,Lawyer,4,Provincial,0.14,1184.67
+2020,personnel,Office Supplies,Computer   ,Lawyer,Provincial,0.07,6.66
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Lawyer,Provincial,0.02,7.32
+2020,personnel,Personnel,Legal Officer,3,Provincial,0.29,1795.83
+2020,personnel,Office Supplies,Computer   ,Legal Officer,Provincial,0.14,13.32
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Legal Officer,Provincial,0.04,14.65
+2020,personnel,Personnel,Transport Manager,4,Provincial,0.18,1478.47
+2020,personnel,Office Supplies,Computer   ,Transport Manager,Provincial,0.09,8.31
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Transport Manager,Provincial,0.02,9.14
+2020,personnel,Personnel,Transport Driver,1,Provincial,0.71,2451.24
+2020,personnel,Transport - Operational Costs,KMs Driven * OpEx,Toyota Hiace passenger van,Provincial,8576.44,1647.44
+2020,personnel,Transport - Fuel Costs,KMs Driven * Fuel,Toyota Hiace passenger van,Provincial,8576.44,876.28
+2020,personnel,Personnel,Programme Manager,4,District,0.72,5970.75
+2020,personnel,Office Supplies,Computer   ,Programme Manager,District,0.36,33.57
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Programme Manager,District,0.09,36.91
+2020,personnel,Personnel,Administration Officer,3,District,1.43,8979.17
+2020,personnel,Office Supplies,Computer   ,Administration Officer,District,0.71,66.61
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Administration Officer,District,0.18,73.24
+2020,personnel,Personnel,Clerical Officer/Administrative Asst.,2,District,2.86,14799.98
+2020,personnel,Office Supplies,Computer   ,Clerical Officer/Administrative Asst.,District,1.43,133.22
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Clerical Officer/Administrative Asst.,District,0.36,146.48
+2020,personnel,Personnel,Personnel Secretary/Asst./Receptionist,2,District,2.15,11129.58
+2020,personnel,Office Supplies,Computer   ,Personnel Secretary/Asst./Receptionist,District,1.07,100.18
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Personnel Secretary/Asst./Receptionist,District,0.27,110.15
+2020,personnel,Personnel,Accountant,4,District,0.72,5970.75
+2020,personnel,Office Supplies,Computer   ,Accountant,District,0.36,33.57
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Accountant,District,0.09,36.91
+2020,personnel,Personnel,I.T./Computing Officer,3,District,0.72,4525.5
+2020,personnel,Office Supplies,Computer   ,I.T./Computing Officer,District,0.36,33.57
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",I.T./Computing Officer,District,0.09,36.91
+2020,personnel,Personnel,Public Health Specialist,4,District,1.43,11846.73
+2020,personnel,Office Supplies,Computer   ,Public Health Specialist,District,0.71,66.61
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Health Specialist,District,0.18,73.24
+2020,personnel,Personnel,Public Health Officer/Assistant,3,District,2.86,17958.34
+2020,personnel,Office Supplies,Computer   ,Public Health Officer/Assistant,District,1.43,133.22
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Health Officer/Assistant,District,0.36,146.48
+2020,personnel,Personnel,Health Educator/Trainer,3,District,2.86,17958.34
+2020,personnel,Office Supplies,Computer   ,Health Educator/Trainer,District,1.43,133.22
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Health Educator/Trainer,District,0.36,146.48
+2020,personnel,Personnel,Public Relations Manager,4,District,1.43,11846.73
+2020,personnel,Office Supplies,Computer   ,Public Relations Manager,District,0.71,66.61
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Relations Manager,District,0.18,73.24
+2020,personnel,Personnel,Public Relations Officer,3,District,2.86,17958.34
+2020,personnel,Office Supplies,Computer   ,Public Relations Officer,District,1.43,133.22
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Relations Officer,District,0.36,146.48
+2020,personnel,Personnel,Transport Manager,4,District,0.35,2937.99
+2020,personnel,Office Supplies,Computer   ,Transport Manager,District,0.18,16.52
+2020,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Transport Manager,District,0.04,18.16
+2020,personnel,Personnel,Transport Driver,1,District,1.78,6118.29
+2020,personnel,Transport - Operational Costs,KMs Driven * OpEx,Toyota Hiace passenger van,District,21406.79,4112.02
+2020,personnel,Transport - Fuel Costs,KMs Driven * Fuel,Toyota Hiace passenger van,District,21406.79,2187.18
+2020,meetings,Meeting,Room Hire Costs,national,200m2,2.0,17177.65
+2020,meetings,Meeting,Per Diem Costs,national experts,national,4.0,4008.12
+2020,meetings,Meeting,Per Diem Costs,local experts,national,20.0,20040.6
+2020,meetings,Meeting,Local attendance costs,support staff,national,2.0,450.17
+2020,meetings,Meeting,Travel Costs for Attendees,national experts,national,4.0,39.97
+2020,meetings,Meeting,Travel Costs for Attendees,local experts,national,20.0,199.84
+2020,meetings,Meeting,Travel Costs for Attendees,support staff,national,0.0,0.0
+2020,meetings,Meeting,Room Hire Costs,provincial,200m2,8.0,17422.12
+2020,meetings,Meeting,Per Diem Costs,national experts,provincial,1.0,1016.29
+2020,meetings,Meeting,Per Diem Costs,local experts,provincial,20.0,20325.81
+2020,meetings,Meeting,Local attendance costs,support staff,provincial,2.0,1080.41
+2020,meetings,Meeting,Travel Costs for Attendees,national experts,provincial,1.0,39.97
+2020,meetings,Meeting,Travel Costs for Attendees,local experts,provincial,20.0,799.37
+2020,meetings,Meeting,Travel Costs for Attendees,support staff,provincial,0.0,0.0
+2020,meetings,Meeting,Room Hire Costs,district,200m2,0.8,533.96
+2020,meetings,Meeting,Per Diem Costs,national experts,district,1.0,31.15
+2020,meetings,Meeting,Per Diem Costs,local experts,district,20.0,622.96
+2020,meetings,Meeting,Local attendance costs,support staff,district,2.0,108.04
+2020,meetings,Meeting,Travel Costs for Attendees,national experts,district,1.0,4.0
+2020,meetings,Meeting,Travel Costs for Attendees,local experts,district,20.0,79.94
+2020,meetings,Meeting,Travel Costs for Attendees,support staff,district,0.0,0.0
+2020,meetings,Meeting,Room Hire Costs,national,200m2,2.0,6871.06
+2020,meetings,Meeting,Per Diem Costs,national experts,national,4.0,1603.25
+2020,meetings,Meeting,Per Diem Costs,local experts,national,20.0,8016.24
+2020,meetings,Meeting,Local attendance costs,support staff,national,2.0,180.07
+2020,meetings,Meeting,Travel Costs for Attendees,national experts,national,4.0,39.97
+2020,meetings,Meeting,Travel Costs for Attendees,local experts,national,20.0,199.84
+2020,meetings,Meeting,Travel Costs for Attendees,support staff,national,0.0,0.0
+2020,meetings,Meeting,Room Hire Costs,provincial,200m2,2.66,3867.71
+2020,meetings,Meeting,Per Diem Costs,national experts,provincial,1.0,225.62
+2020,meetings,Meeting,Per Diem Costs,local experts,provincial,20.0,4512.33
+2020,meetings,Meeting,Local attendance costs,support staff,provincial,2.0,239.85
+2020,meetings,Meeting,Travel Costs for Attendees,national experts,provincial,1.0,13.31
+2020,meetings,Meeting,Travel Costs for Attendees,local experts,provincial,20.0,266.19
+2020,meetings,Meeting,Travel Costs for Attendees,support staff,provincial,0.0,0.0
+2020,meetings,Meeting,Room Hire Costs,district,200m2,0.08,35.6
+2020,meetings,Meeting,Per Diem Costs,national experts,district,1.0,2.08
+2020,meetings,Meeting,Per Diem Costs,local experts,district,20.0,41.53
+2020,meetings,Meeting,Local attendance costs,support staff,district,2.0,7.2
+2020,meetings,Meeting,Travel Costs for Attendees,national experts,district,1.0,0.4
+2020,meetings,Meeting,Travel Costs for Attendees,local experts,district,20.0,7.99
+2020,meetings,Meeting,Travel Costs for Attendees,support staff,district,0.0,0.0
+2020,meetings,Meeting,Room Hire Costs,national,200m2,2.0,6871.06
+2020,meetings,Meeting,Per Diem Costs,national experts,national,4.0,1603.25
+2020,meetings,Meeting,Per Diem Costs,local experts,national,20.0,8016.24
+2020,meetings,Meeting,Local attendance costs,support staff,national,2.0,180.07
+2020,meetings,Meeting,Travel Costs for Attendees,national experts,national,4.0,39.97
+2020,meetings,Meeting,Travel Costs for Attendees,local experts,national,5.0,49.96
+2020,meetings,Meeting,Travel Costs for Attendees,support staff,national,0.0,0.0
+2020,meetings,Meeting,Room Hire Costs,provincial,200m2,8.0,11614.75
+2020,meetings,Meeting,Per Diem Costs,national experts,provincial,1.0,677.53
+2020,meetings,Meeting,Travel Costs for Attendees,national experts,provincial,1.0,39.97
+2020,meetings,Meeting,Room Hire Costs,district,200m2,0.08,17.8
+2020,meetings,Meeting,Per Diem Costs,national experts,district,1.0,1.04
+2020,meetings,Meeting,Travel Costs for Attendees,national experts,district,1.0,0.4
+2020,meetings,Meeting,Room Hire Costs,national,200m2,1.0,5153.3
+2020,meetings,Meeting,Per Diem Costs,national experts,national,4.0,1202.44
+2020,meetings,Meeting,Per Diem Costs,local experts,national,20.0,6012.18
+2020,meetings,Meeting,Local attendance costs,support staff,national,2.0,135.05
+2020,meetings,Meeting,Travel Costs for Attendees,national experts,national,4.0,19.98
+2020,meetings,Meeting,Travel Costs for Attendees,local experts,national,20.0,99.92
+2020,meetings,Meeting,Travel Costs for Attendees,support staff,national,0.0,0.0
+2020,meetings,Meeting,Room Hire Costs,provincial,200m2,8.0,17422.12
+2020,meetings,Meeting,Per Diem Costs,national experts,provincial,1.0,1016.29
+2020,meetings,Meeting,Per Diem Costs,local experts,provincial,20.0,20325.81
+2020,meetings,Meeting,Local attendance costs,support staff,provincial,2.0,1080.41
+2020,meetings,Meeting,Travel Costs for Attendees,national experts,provincial,1.0,39.97
+2020,meetings,Meeting,Travel Costs for Attendees,local experts,provincial,20.0,799.37
+2020,meetings,Meeting,Travel Costs for Attendees,support staff,provincial,0.0,0.0
+2020,meetings,Meeting,Room Hire Costs,district,200m2,0.8,533.96
+2020,meetings,Meeting,Per Diem Costs,national experts,district,1.0,31.15
+2020,meetings,Meeting,Per Diem Costs,local experts,district,20.0,622.96
+2020,meetings,Meeting,Local attendance costs,support staff,district,2.0,108.04
+2020,meetings,Meeting,Travel Costs for Attendees,national experts,district,1.0,4.0
+2020,meetings,Meeting,Travel Costs for Attendees,local experts,district,0.0,0.0
+2020,meetings,Meeting,Travel Costs for Attendees,support staff,district,0.0,0.0
+2020,meetings,Meeting,Room Hire Costs,national,200m2,1.0,5153.3
+2020,meetings,Meeting,Per Diem Costs,national experts,national,4.0,1202.44
+2020,meetings,Meeting,Per Diem Costs,local experts,national,20.0,6012.18
+2020,meetings,Meeting,Local attendance costs,support staff,national,2.0,135.05
+2020,meetings,Meeting,Travel Costs for Attendees,national experts,national,4.0,19.98
+2020,meetings,Meeting,Travel Costs for Attendees,local experts,national,20.0,99.92
+2020,meetings,Meeting,Travel Costs for Attendees,support staff,national,0.0,0.0
+2020,meetings,Meeting,Room Hire Costs,provincial,200m2,8.0,17422.12
+2020,meetings,Meeting,Per Diem Costs,national experts,provincial,1.0,1016.29
+2020,meetings,Meeting,Per Diem Costs,local experts,provincial,20.0,20325.81
+2020,meetings,Meeting,Local attendance costs,support staff,provincial,2.0,1080.41
+2020,meetings,Meeting,Travel Costs for Attendees,national experts,provincial,1.0,39.97
+2020,meetings,Meeting,Travel Costs for Attendees,local experts,provincial,20.0,799.37
+2020,meetings,Meeting,Travel Costs for Attendees,support staff,provincial,0.0,0.0
+2020,meetings,Meeting,Room Hire Costs,district,200m2,0.8,533.96
+2020,meetings,Meeting,Per Diem Costs,national experts,district,1.0,31.15
+2020,meetings,Meeting,Per Diem Costs,local experts,district,20.0,622.96
+2020,meetings,Meeting,Local attendance costs,support staff,district,2.0,108.04
+2020,meetings,Meeting,Travel Costs for Attendees,national experts,district,1.0,4.0
+2020,meetings,Meeting,Travel Costs for Attendees,local experts,district,20.0,79.94
+2020,meetings,Meeting,Travel Costs for Attendees,support staff,district,0.0,0.0
+2020,meetings,Meeting,Room Hire Costs,national,200m2,1.0,5153.3
+2020,meetings,Meeting,Per Diem Costs,national experts,national,2.0,601.22
+2020,meetings,Meeting,Travel Costs for Attendees,national experts,national,2.0,9.99
+2020,meetings,Meeting,Room Hire Costs,provincial,200m2,8.0,11614.75
+2020,meetings,Meeting,Per Diem Costs,national experts,provincial,1.0,677.53
+2020,meetings,Meeting,Per Diem Costs,local experts,provincial,20.0,13550.54
+2020,meetings,Meeting,Local attendance costs,support staff,provincial,2.0,720.27
+2020,meetings,Meeting,Travel Costs for Attendees,national experts,provincial,1.0,39.97
+2020,meetings,Meeting,Travel Costs for Attendees,local experts,provincial,20.0,799.37
+2020,meetings,Meeting,Travel Costs for Attendees,support staff,provincial,0.0,0.0
+2020,meetings,Meeting,Room Hire Costs,district,200m2,0.8,355.98
+2020,meetings,Meeting,Per Diem Costs,national experts,district,1.0,20.77
+2020,meetings,Meeting,Per Diem Costs,local experts,district,20.0,415.3
+2020,meetings,Meeting,Local attendance costs,support staff,district,2.0,72.03
+2020,meetings,Meeting,Travel Costs for Attendees,national experts,district,1.0,4.0
+2020,meetings,Meeting,Travel Costs for Attendees,local experts,district,20.0,79.94
+2020,meetings,Meeting,Travel Costs for Attendees,support staff,district,0.0,0.0
+2020,media,Wall Posters,regional_hospitals,national,,0.0,0.0
+2020,media,Wall Posters,provincial_hospitals,provincial,,0.0,0.0
+2020,media,Wall Posters,district_hospitals,district,,0.0,0.0
+2020,media,Wall Posters,health_centres,district,,4.0,58.95
+2020,media,Wall Posters,health_posts,district,,3.0,44.21
+2021,personnel,Personnel,Programme Director,5,National,0.24,2389.28
+2021,personnel,Office Supplies,Computer   ,Programme Director,National,0.12,10.66
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Programme Director,National,0.03,11.72
+2021,personnel,Personnel,Programme Manager,4,National,0.47,3791.78
+2021,personnel,Office Supplies,Computer   ,Programme Manager,National,0.24,21.32
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Programme Manager,National,0.06,23.44
+2021,personnel,Personnel,Administration Officer,3,National,0.94,5747.93
+2021,personnel,Office Supplies,Computer   ,Administration Officer,National,0.47,42.64
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Administration Officer,National,0.12,46.88
+2021,personnel,Personnel,Clerical Officer/Administrative Asst.,2,National,1.88,9474.06
+2021,personnel,Office Supplies,Computer   ,Clerical Officer/Administrative Asst.,National,0.94,85.28
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Clerical Officer/Administrative Asst.,National,0.24,93.77
+2021,personnel,Personnel,Personnel Secretary/Asst./Receptionist,2,National,1.65,8289.8
+2021,personnel,Office Supplies,Computer   ,Personnel Secretary/Asst./Receptionist,National,0.82,74.62
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Personnel Secretary/Asst./Receptionist,National,0.21,82.04
+2021,personnel,Personnel,Accountant,4,National,0.47,3791.78
+2021,personnel,Office Supplies,Computer   ,Accountant,National,0.24,21.32
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Accountant,National,0.06,23.44
+2021,personnel,Personnel,I.S./I.T./Computing Manager,4,National,0.24,1895.89
+2021,personnel,Office Supplies,Computer   ,I.S./I.T./Computing Manager,National,0.12,10.66
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",I.S./I.T./Computing Manager,National,0.03,11.72
+2021,personnel,Personnel,I.T./Computing Officer,3,National,0.47,2873.96
+2021,personnel,Office Supplies,Computer   ,I.T./Computing Officer,National,0.24,21.32
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",I.T./Computing Officer,National,0.06,23.44
+2021,personnel,Personnel,Cleaner,1,National,0.24,784.57
+2021,personnel,Personnel,Public Health Specialist,4,National,0.94,7583.56
+2021,personnel,Office Supplies,Computer   ,Public Health Specialist,National,0.47,42.64
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Health Specialist,National,0.12,46.88
+2021,personnel,Personnel,Public Health Officer/Assistant,3,National,1.88,11495.85
+2021,personnel,Office Supplies,Computer   ,Public Health Officer/Assistant,National,0.94,85.28
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Health Officer/Assistant,National,0.24,93.77
+2021,personnel,Personnel,Health Educator/Trainer,3,National,1.88,11495.85
+2021,personnel,Office Supplies,Computer   ,Health Educator/Trainer,National,0.94,85.28
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Health Educator/Trainer,National,0.24,93.77
+2021,personnel,Personnel,Public Relations Manager,4,National,0.47,3791.78
+2021,personnel,Office Supplies,Computer   ,Public Relations Manager,National,0.24,21.32
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Relations Manager,National,0.06,23.44
+2021,personnel,Personnel,Public Relations Officer,3,National,0.94,5747.93
+2021,personnel,Office Supplies,Computer   ,Public Relations Officer,National,0.47,42.64
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Relations Officer,National,0.12,46.88
+2021,personnel,Personnel,Lawyer,4,National,0.24,1895.89
+2021,personnel,Office Supplies,Computer   ,Lawyer,National,0.12,10.66
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Lawyer,National,0.03,11.72
+2021,personnel,Personnel,Legal Officer,3,National,0.47,2873.96
+2021,personnel,Office Supplies,Computer   ,Legal Officer,National,0.24,21.32
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Legal Officer,National,0.06,23.44
+2021,personnel,Personnel,Transport Manager,4,National,0.29,2373.66
+2021,personnel,Office Supplies,Computer   ,Transport Manager,National,0.15,13.35
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Transport Manager,National,0.04,14.67
+2021,personnel,Personnel,Transport Driver,1,National,1.18,3922.84
+2021,personnel,Transport - Operational Costs,KMs Driven * OpEx,Toyota Hiace passenger van,National,14137.06,2636.48
+2021,personnel,Transport - Fuel Costs,KMs Driven * Fuel,Toyota Hiace passenger van,National,14137.06,1402.35
+2021,personnel,Personnel,Programme Director,5,Provincial,0.15,1493.3
+2021,personnel,Office Supplies,Computer   ,Programme Director,Provincial,0.07,6.66
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Programme Director,Provincial,0.02,7.33
+2021,personnel,Personnel,Programme Manager,4,Provincial,0.29,2369.86
+2021,personnel,Office Supplies,Computer   ,Programme Manager,Provincial,0.15,13.32
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Programme Manager,Provincial,0.04,14.65
+2021,personnel,Personnel,Administration Officer,3,Provincial,0.59,3592.45
+2021,personnel,Office Supplies,Computer   ,Administration Officer,Provincial,0.29,26.65
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Administration Officer,Provincial,0.07,29.3
+2021,personnel,Personnel,Clerical Officer/Administrative Asst.,2,Provincial,1.18,5921.29
+2021,personnel,Office Supplies,Computer   ,Clerical Officer/Administrative Asst.,Provincial,0.59,53.3
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Clerical Officer/Administrative Asst.,Provincial,0.15,58.6
+2021,personnel,Personnel,Personnel Secretary/Asst./Receptionist,2,Provincial,1.03,5181.13
+2021,personnel,Office Supplies,Computer   ,Personnel Secretary/Asst./Receptionist,Provincial,0.52,46.64
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Personnel Secretary/Asst./Receptionist,Provincial,0.13,51.28
+2021,personnel,Personnel,Accountant,4,Provincial,0.29,2369.86
+2021,personnel,Office Supplies,Computer   ,Accountant,Provincial,0.15,13.32
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Accountant,Provincial,0.04,14.65
+2021,personnel,Personnel,I.S./I.T./Computing Manager,4,Provincial,0.15,1184.93
+2021,personnel,Office Supplies,Computer   ,I.S./I.T./Computing Manager,Provincial,0.07,6.66
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",I.S./I.T./Computing Manager,Provincial,0.02,7.33
+2021,personnel,Personnel,I.T./Computing Officer,3,Provincial,0.29,1796.23
+2021,personnel,Office Supplies,Computer   ,I.T./Computing Officer,Provincial,0.15,13.32
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",I.T./Computing Officer,Provincial,0.04,14.65
+2021,personnel,Personnel,Cleaner,1,Provincial,0.29,980.71
+2021,personnel,Personnel,Public Health Specialist,4,Provincial,0.59,4739.73
+2021,personnel,Office Supplies,Computer   ,Public Health Specialist,Provincial,0.29,26.65
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Health Specialist,Provincial,0.07,29.3
+2021,personnel,Personnel,Public Health Officer/Assistant,3,Provincial,1.18,7184.91
+2021,personnel,Office Supplies,Computer   ,Public Health Officer/Assistant,Provincial,0.59,53.3
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Health Officer/Assistant,Provincial,0.15,58.6
+2021,personnel,Personnel,Health Educator/Trainer,3,Provincial,1.18,7184.91
+2021,personnel,Office Supplies,Computer   ,Health Educator/Trainer,Provincial,0.59,53.3
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Health Educator/Trainer,Provincial,0.15,58.6
+2021,personnel,Personnel,Public Relations Manager,4,Provincial,0.29,2369.86
+2021,personnel,Office Supplies,Computer   ,Public Relations Manager,Provincial,0.15,13.32
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Relations Manager,Provincial,0.04,14.65
+2021,personnel,Personnel,Public Relations Officer,3,Provincial,0.59,3592.45
+2021,personnel,Office Supplies,Computer   ,Public Relations Officer,Provincial,0.29,26.65
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Relations Officer,Provincial,0.07,29.3
+2021,personnel,Personnel,Lawyer,4,Provincial,0.15,1184.93
+2021,personnel,Office Supplies,Computer   ,Lawyer,Provincial,0.07,6.66
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Lawyer,Provincial,0.02,7.33
+2021,personnel,Personnel,Legal Officer,3,Provincial,0.29,1796.23
+2021,personnel,Office Supplies,Computer   ,Legal Officer,Provincial,0.15,13.32
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Legal Officer,Provincial,0.04,14.65
+2021,personnel,Personnel,Transport Manager,4,Provincial,0.18,1478.79
+2021,personnel,Office Supplies,Computer   ,Transport Manager,Provincial,0.09,8.31
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Transport Manager,Provincial,0.02,9.14
+2021,personnel,Personnel,Transport Driver,1,Provincial,0.74,2451.77
+2021,personnel,Transport - Operational Costs,KMs Driven * OpEx,Toyota Hiace passenger van,Provincial,8835.66,1647.8
+2021,personnel,Transport - Fuel Costs,KMs Driven * Fuel,Toyota Hiace passenger van,Provincial,8835.66,876.47
+2021,personnel,Personnel,Programme Manager,4,District,0.74,5972.06
+2021,personnel,Office Supplies,Computer   ,Programme Manager,District,0.37,33.58
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Programme Manager,District,0.09,36.92
+2021,personnel,Personnel,Administration Officer,3,District,1.47,8981.14
+2021,personnel,Office Supplies,Computer   ,Administration Officer,District,0.74,66.62
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Administration Officer,District,0.18,73.25
+2021,personnel,Personnel,Clerical Officer/Administrative Asst.,2,District,2.95,14803.22
+2021,personnel,Office Supplies,Computer   ,Clerical Officer/Administrative Asst.,District,1.47,133.25
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Clerical Officer/Administrative Asst.,District,0.37,146.51
+2021,personnel,Personnel,Personnel Secretary/Asst./Receptionist,2,District,2.21,11132.02
+2021,personnel,Office Supplies,Computer   ,Personnel Secretary/Asst./Receptionist,District,1.11,100.2
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Personnel Secretary/Asst./Receptionist,District,0.28,110.17
+2021,personnel,Personnel,Accountant,4,District,0.74,5972.06
+2021,personnel,Office Supplies,Computer   ,Accountant,District,0.37,33.58
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Accountant,District,0.09,36.92
+2021,personnel,Personnel,I.T./Computing Officer,3,District,0.74,4526.49
+2021,personnel,Office Supplies,Computer   ,I.T./Computing Officer,District,0.37,33.58
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",I.T./Computing Officer,District,0.09,36.92
+2021,personnel,Personnel,Public Health Specialist,4,District,1.47,11849.32
+2021,personnel,Office Supplies,Computer   ,Public Health Specialist,District,0.74,66.62
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Health Specialist,District,0.18,73.25
+2021,personnel,Personnel,Public Health Officer/Assistant,3,District,2.95,17962.27
+2021,personnel,Office Supplies,Computer   ,Public Health Officer/Assistant,District,1.47,133.25
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Health Officer/Assistant,District,0.37,146.51
+2021,personnel,Personnel,Health Educator/Trainer,3,District,2.95,17962.27
+2021,personnel,Office Supplies,Computer   ,Health Educator/Trainer,District,1.47,133.25
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Health Educator/Trainer,District,0.37,146.51
+2021,personnel,Personnel,Public Relations Manager,4,District,1.47,11849.32
+2021,personnel,Office Supplies,Computer   ,Public Relations Manager,District,0.74,66.62
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Relations Manager,District,0.18,73.25
+2021,personnel,Personnel,Public Relations Officer,3,District,2.95,17962.27
+2021,personnel,Office Supplies,Computer   ,Public Relations Officer,District,1.47,133.25
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Public Relations Officer,District,0.37,146.51
+2021,personnel,Personnel,Transport Manager,4,District,0.37,2938.63
+2021,personnel,Office Supplies,Computer   ,Transport Manager,District,0.18,16.52
+2021,personnel,Office Supplies,"Multifunciton Photocopier, Fax, Printer and Scanner ",Transport Manager,District,0.05,18.17
+2021,personnel,Personnel,Transport Driver,1,District,1.84,6119.63
+2021,personnel,Transport - Operational Costs,KMs Driven * OpEx,Toyota Hiace passenger van,District,22053.81,4112.91
+2021,personnel,Transport - Fuel Costs,KMs Driven * Fuel,Toyota Hiace passenger van,District,22053.81,2187.66
+2021,meetings,Meeting,Room Hire Costs,national,200m2,2.0,16677.33
+2021,meetings,Meeting,Per Diem Costs,national experts,national,4.0,3891.38
+2021,meetings,Meeting,Per Diem Costs,local experts,national,20.0,19456.89
+2021,meetings,Meeting,Local attendance costs,support staff,national,2.0,437.06
+2021,meetings,Meeting,Travel Costs for Attendees,national experts,national,4.0,38.8
+2021,meetings,Meeting,Travel Costs for Attendees,local experts,national,20.0,194.02
+2021,meetings,Meeting,Travel Costs for Attendees,support staff,national,0.0,0.0
+2021,meetings,Meeting,Room Hire Costs,provincial,200m2,8.0,16914.68
+2021,meetings,Meeting,Per Diem Costs,national experts,provincial,1.0,986.69
+2021,meetings,Meeting,Per Diem Costs,local experts,provincial,20.0,19733.79
+2021,meetings,Meeting,Local attendance costs,support staff,provincial,2.0,1048.94
+2021,meetings,Meeting,Travel Costs for Attendees,national experts,provincial,1.0,38.8
+2021,meetings,Meeting,Travel Costs for Attendees,local experts,provincial,20.0,776.09
+2021,meetings,Meeting,Travel Costs for Attendees,support staff,provincial,0.0,0.0
+2021,meetings,Meeting,Room Hire Costs,national,200m2,2.0,6670.93
+2021,meetings,Meeting,Per Diem Costs,national experts,national,4.0,1556.55
+2021,meetings,Meeting,Per Diem Costs,local experts,national,20.0,7782.76
+2021,meetings,Meeting,Local attendance costs,support staff,national,2.0,174.82
+2021,meetings,Meeting,Travel Costs for Attendees,national experts,national,4.0,38.8
+2021,meetings,Meeting,Travel Costs for Attendees,local experts,national,20.0,194.02
+2021,meetings,Meeting,Travel Costs for Attendees,support staff,national,0.0,0.0
+2021,meetings,Meeting,Room Hire Costs,provincial,200m2,2.66,3755.06
+2021,meetings,Meeting,Per Diem Costs,national experts,provincial,1.0,219.05
+2021,meetings,Meeting,Per Diem Costs,local experts,provincial,20.0,4380.9
+2021,meetings,Meeting,Local attendance costs,support staff,provincial,2.0,232.87
+2021,meetings,Meeting,Travel Costs for Attendees,national experts,provincial,1.0,12.92
+2021,meetings,Meeting,Travel Costs for Attendees,local experts,provincial,20.0,258.44
+2021,meetings,Meeting,Travel Costs for Attendees,support staff,provincial,0.0,0.0
+2021,meetings,Meeting,Room Hire Costs,national,200m2,1.0,5003.2
+2021,meetings,Meeting,Per Diem Costs,national experts,national,4.0,1167.41
+2021,meetings,Meeting,Per Diem Costs,local experts,national,20.0,5837.07
+2021,meetings,Meeting,Local attendance costs,support staff,national,2.0,131.12
+2021,meetings,Meeting,Travel Costs for Attendees,national experts,national,4.0,19.4
+2021,meetings,Meeting,Travel Costs for Attendees,local experts,national,20.0,97.01
+2021,meetings,Meeting,Travel Costs for Attendees,support staff,national,0.0,0.0
+2021,meetings,Meeting,Room Hire Costs,provincial,200m2,8.0,16914.68
+2021,meetings,Meeting,Per Diem Costs,national experts,provincial,1.0,986.69
+2021,meetings,Meeting,Per Diem Costs,local experts,provincial,20.0,19733.79
+2021,meetings,Meeting,Local attendance costs,support staff,provincial,2.0,1048.94
+2021,meetings,Meeting,Travel Costs for Attendees,national experts,provincial,1.0,38.8
+2021,meetings,Meeting,Travel Costs for Attendees,local experts,provincial,20.0,776.09
+2021,meetings,Meeting,Travel Costs for Attendees,support staff,provincial,0.0,0.0
+2021,meetings,Meeting,Room Hire Costs,district,200m2,0.8,518.41
+2021,meetings,Meeting,Per Diem Costs,national experts,district,1.0,30.24
+2021,meetings,Meeting,Per Diem Costs,local experts,district,20.0,604.81
+2021,meetings,Meeting,Local attendance costs,support staff,district,2.0,104.89
+2021,meetings,Meeting,Travel Costs for Attendees,national experts,district,1.0,3.88
+2021,meetings,Meeting,Travel Costs for Attendees,local experts,district,0.0,0.0
+2021,meetings,Meeting,Travel Costs for Attendees,support staff,district,0.0,0.0
+2021,meetings,Meeting,Room Hire Costs,national,200m2,1.0,5003.2
+2021,meetings,Meeting,Per Diem Costs,national experts,national,4.0,1167.41
+2021,meetings,Meeting,Per Diem Costs,local experts,national,20.0,5837.07
+2021,meetings,Meeting,Local attendance costs,support staff,national,2.0,131.12
+2021,meetings,Meeting,Travel Costs for Attendees,national experts,national,4.0,19.4
+2021,meetings,Meeting,Travel Costs for Attendees,local experts,national,20.0,97.01
+2021,meetings,Meeting,Travel Costs for Attendees,support staff,national,0.0,0.0
+2021,meetings,Meeting,Room Hire Costs,provincial,200m2,8.0,16914.68
+2021,meetings,Meeting,Per Diem Costs,national experts,provincial,1.0,986.69
+2021,meetings,Meeting,Per Diem Costs,local experts,provincial,20.0,19733.79
+2021,meetings,Meeting,Local attendance costs,support staff,provincial,2.0,1048.94
+2021,meetings,Meeting,Travel Costs for Attendees,national experts,provincial,1.0,38.8
+2021,meetings,Meeting,Travel Costs for Attendees,local experts,provincial,20.0,776.09
+2021,meetings,Meeting,Travel Costs for Attendees,support staff,provincial,0.0,0.0
+2021,meetings,Meeting,Room Hire Costs,district,200m2,0.8,518.41
+2021,meetings,Meeting,Per Diem Costs,national experts,district,1.0,30.24
+2021,meetings,Meeting,Per Diem Costs,local experts,district,20.0,604.81
+2021,meetings,Meeting,Local attendance costs,support staff,district,2.0,104.89
+2021,meetings,Meeting,Travel Costs for Attendees,national experts,district,1.0,3.88
+2021,meetings,Meeting,Travel Costs for Attendees,local experts,district,20.0,77.61
+2021,meetings,Meeting,Travel Costs for Attendees,support staff,district,0.0,0.0
+2021,meetings,Meeting,Room Hire Costs,provincial,200m2,8.0,11276.45
+2021,meetings,Meeting,Per Diem Costs,national experts,provincial,1.0,657.79
+2021,meetings,Meeting,Per Diem Costs,local experts,provincial,20.0,13155.86
+2021,meetings,Meeting,Local attendance costs,support staff,provincial,2.0,699.29
+2021,meetings,Meeting,Travel Costs for Attendees,national experts,provincial,1.0,38.8
+2021,meetings,Meeting,Travel Costs for Attendees,local experts,provincial,20.0,776.09
+2021,meetings,Meeting,Travel Costs for Attendees,support staff,provincial,0.0,0.0
+2021,meetings,Meeting,Room Hire Costs,district,200m2,0.8,345.61
+2021,meetings,Meeting,Per Diem Costs,national experts,district,1.0,20.16
+2021,meetings,Meeting,Per Diem Costs,local experts,district,20.0,403.21
+2021,meetings,Meeting,Local attendance costs,support staff,district,2.0,69.93
+2021,meetings,Meeting,Travel Costs for Attendees,national experts,district,1.0,3.88
+2021,meetings,Meeting,Travel Costs for Attendees,local experts,district,20.0,77.61
+2021,meetings,Meeting,Travel Costs for Attendees,support staff,district,0.0,0.0
+2021,media,Wall Posters,regional_hospitals,national,,0.0,0.0
+2021,media,Wall Posters,provincial_hospitals,provincial,,0.0,0.0
+2021,media,Wall Posters,district_hospitals,district,,0.0,0.0
+2021,media,Wall Posters,health_centres,district,,4.0,57.23
+2021,media,Wall Posters,health_posts,district,,3.0,42.92
