@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programme Costing Demo</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Programme Costing Demo</h1>
+      <p>Configure a scenario and generate estimated costs using the WHO programme costing utilities.</p>
+    </header>
+
+    <section class="card" id="configuration">
+      <h2>Scenario Settings</h2>
+      <form id="config-form">
+        <div class="field">
+          <label for="country">Country</label>
+          <select id="country" name="country" required></select>
+        </div>
+        <div class="field-group">
+          <div class="field">
+            <label for="start_year">Start Year</label>
+            <input type="number" id="start_year" name="start_year" required />
+          </div>
+          <div class="field">
+            <label for="end_year">End Year</label>
+            <input type="number" id="end_year" name="end_year" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="discount_rate">Discount Rate</label>
+          <input type="number" step="0.01" id="discount_rate" name="discount_rate" required />
+          <small>Specify as 1 + r (e.g. 1.03 for 3% discounting).</small>
+        </div>
+        <div class="field-group">
+          <div class="field">
+            <label for="desired_currency">Output Currency</label>
+            <select id="desired_currency" name="desired_currency" required></select>
+          </div>
+          <div class="field">
+            <label for="desired_year">Output Year</label>
+            <input type="number" id="desired_year" name="desired_year" required />
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" id="run-button">Run Costing</button>
+      </form>
+    </section>
+
+    <section class="card" id="results" hidden>
+      <div class="results-header">
+        <h2>Results</h2>
+        <div class="actions">
+          <button class="btn-secondary" id="download-btn" type="button">Download CSV</button>
+        </div>
+      </div>
+      <p id="summary"></p>
+      <div class="table-wrapper">
+        <table id="results-table">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="pagination" hidden>
+        <div class="page-controls">
+          <button class="btn-secondary" id="prev-page" type="button">Previous</button>
+          <span id="page-info">Page 1</span>
+          <button class="btn-secondary" id="next-page" type="button">Next</button>
+        </div>
+        <div class="page-size">
+          <label for="page-size">Rows per page</label>
+          <select id="page-size">
+            <option value="25">25</option>
+            <option value="50" selected>50</option>
+            <option value="100">100</option>
+            <option value="250">250</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="status-card">
+      <h2>Status</h2>
+      <pre id="status">Loading configuration…</pre>
+    </section>
+  </main>
+
+  <script src="/static/app.js" type="module"></script>
+</body>
+</html>
