@@ -57,6 +57,31 @@
         </div>
       </div>
       <p id="summary"></p>
+      <div class="summary-grid" id="metrics">
+        <div class="metric-card">
+          <span class="metric-label">Total Cost</span>
+          <span class="metric-value" id="metric-total-cost">--</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Records</span>
+          <span class="metric-value" id="metric-record-count">--</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Years Covered</span>
+          <span class="metric-value" id="metric-year-range">--</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Top Category</span>
+          <span class="metric-value" id="metric-top-component">--</span>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3>Cost Breakdown by Component</h3>
+        </div>
+        <canvas id="component-chart" height="220"></canvas>
+      </div>
+      <div class="tab-bar" id="category-tabs"></div>
       <div class="table-wrapper">
         <table id="results-table">
           <thead></thead>
@@ -87,6 +112,7 @@
     </section>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="/static/app.js" type="module"></script>
 </body>
 </html>

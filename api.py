@@ -20,8 +20,8 @@ with open("./templates/media.json", "r", encoding="utf-8") as file:
 
 DEFAULTS = {
     "country": "UGA",
-    "start_year": 2020,
-    "end_year": 2100,
+    "start_year": 2025,
+    "end_year": 2035,
     "discount_rate": 1.03,
     "desired_currency": "USD",
     "desired_year": 2018,
